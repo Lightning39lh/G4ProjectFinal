@@ -45,13 +45,8 @@ public class WalletController {
     }
 
     @PostMapping
-    public ResponseEntity<String> saveWallet(@RequestBody Wallet wallet){
-        if(wS.save(wallet)){
-            return ResponseEntity.status(HttpStatus.OK).body("Added User");
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
-        }
+    public ResponseEntity saveWallet(@RequestBody Wallet wallet){
+        wS.save(wallet);
+        return ResponseEntity.ok().body("Success.");
     }
-
-
 }

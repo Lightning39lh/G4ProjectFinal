@@ -36,14 +36,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> save(@RequestBody MyUser user){
-        if(uS.save(p)){
-            return ResponseEntity.status(HttpStatus.OK).body("Added User");
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
-        }
+    public ResponseEntity save(@RequestBody MyUser user){
+        uS.save(user);
+        return ResponseEntity.ok().body("Success.");
     }
-
+    
     @PutMapping
     public ResponseEntity<String> put(@RequestBody MyUser user){
         if(uS.put(user)){
