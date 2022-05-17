@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/MyUsers")
+@RequestMapping("MyUsers")
 public class UserController {
     
     @Autowired
@@ -27,7 +27,7 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<MyUser> findByUserName(@PathVariable("username") String username){
-        MyUser user = uS.getByUsername(username);
+        MyUser user = uS.findByUserName(username);
         if(user!=null){
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }else{
