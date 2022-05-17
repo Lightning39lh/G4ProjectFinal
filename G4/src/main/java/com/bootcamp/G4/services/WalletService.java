@@ -22,7 +22,7 @@ public class WalletService {
     }
 
     public Wallet saveWallet(Wallet wallet) {
-        return wR.save(wallet);
+            return wR.save(wallet);      
     }
 
     public Wallet getWalletByID(Long id) {
@@ -37,11 +37,14 @@ public class WalletService {
             return false;
         }
     }
-    /*
-    public TokenWallet addToken(Long idToken, double cantidad)
+    
+    public Wallet addToken(Long idWallet, Long idToken, double cantidad)
     {
-        tokenWallet = 
-        return tokenWallet;
-    }*/
+        Wallet wallet = getWalletByID(idWallet);
+        wallet.TokenWallet.add(idToken,cantidad);
+        wR.save(wallet);
+        return Wallet;
+    }
+    asd
     
 }
