@@ -1,8 +1,8 @@
 package com.bootcamp.G4.model;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import javax.persistence.CascadeType;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +24,7 @@ public class Wallet {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id_wallet;
-    @OneToMany(mappedBy= "wallet")
-    private Set<TokenWallet> token_wallet;
+    @OneToMany(mappedBy= "wallet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cuentas> token_wallet;
     
 }
