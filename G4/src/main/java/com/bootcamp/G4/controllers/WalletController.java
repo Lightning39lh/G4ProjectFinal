@@ -21,12 +21,12 @@ public class WalletController {
     WalletService wS;
 
     @GetMapping
-    public ArrayList<Wallet> getAll(){
+    public ArrayList<Wallet> getAllWallets(){
         return wS.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Wallet> findById(@PathVariable("id") Long id){
+    public ResponseEntity<Wallet> getWalletById(@PathVariable("id") Long id){
         Wallet wallet = wS.findById(id);
         if(wallet!=null){
             return ResponseEntity.status(HttpStatus.OK).body(wallet);
@@ -45,7 +45,7 @@ public class WalletController {
     }
 
     @PostMapping
-    public ResponseEntity<String> save(@RequestBody Wallet wallet){
+    public ResponseEntity<String> saveWallet(@RequestBody Wallet wallet){
         if(wS.save(wallet)){
             return ResponseEntity.status(HttpStatus.OK).body("Added User");
         }else{
