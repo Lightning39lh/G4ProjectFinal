@@ -23,6 +23,8 @@ public class UserController {
     
     @Autowired
     private MyUserService uS;
+    
+ 
 
     @GetMapping
     public ResponseEntity<ArrayList<MyUser>> getAllUsers(){
@@ -44,6 +46,15 @@ public class UserController {
         uS.saveUser(user);
         return ResponseEntity.ok().body("Success.");
     }
+    /*
+    @PostMapping("/{user_id}")
+    public ResponseEntity save(@PathVariable(value = "user_id") Long user_id, @RequestBody MyUser user) {
+        Role role = new Role (user_id, )
+        proyectRequest.setPerson(p);
+        Proyect newProyect = proyectService.save(proyectRequest);
+        return ResponseEntity.ok().body("Success.");
+    }*/
+    
     
     @PutMapping
     public ResponseEntity<String> put(@RequestBody MyUser user){
