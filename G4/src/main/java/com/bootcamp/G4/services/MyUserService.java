@@ -18,19 +18,19 @@ public class MyUserService {
         return (ArrayList<MyUser>) uR.findAll();
     }
 
-    public MyUser savePerson(MyUser persona) {
-        return uR.save(persona);
+    public MyUser saveUser(MyUser user) {
+        return uR.save(user);
     }
 
     public Optional<MyUser> getUserByID(Long id) {
         return uR.findById(id);
     }
     //GET BY USER
-    public Optional<MyUser> getUserByUserName(String userName) {
+    public Optional<MyUser> findByUserName(String userName) {
         return uR.findByUsername(userName);
     }
     //DELETE
-    public boolean removeUser(Long id) {
+    public boolean deleteById(Long id) {
         try {
             uR.deleteById(id);
             return true;

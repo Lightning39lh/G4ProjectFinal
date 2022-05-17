@@ -1,5 +1,7 @@
 package com.bootcamp.G4.controllers;
 
+import com.bootcamp.G4.model.MyToken;
+import com.bootcamp.G4.services.MyTokenService;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class TokenController {
 
     @GetMapping
     public ResponseEntity<ArrayList<MyToken>> getAllTokens(){
-        return ResponseEntity.status(HttpStatus.OK).body(tS.getAll());
+        return ResponseEntity.status(HttpStatus.OK).body(tS.getAllTokens());
     }
 
     @GetMapping("/{id}")
@@ -44,7 +46,7 @@ public class TokenController {
     
     @PutMapping
     public ResponseEntity<String> put(@RequestBody MyToken token){
-        if(tS.put(token)){
+        if(tS.edit(token)){
             return ResponseEntity.status(HttpStatus.OK).body("Edited Succesfull");
         }else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
@@ -53,7 +55,7 @@ public class TokenController {
     
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id")long id){
-        if(tS.delete(id)){
+        if(tS.deleteById(id)){
             return ResponseEntity.status(HttpStatus.OK).body("User Deleted");
         }else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");

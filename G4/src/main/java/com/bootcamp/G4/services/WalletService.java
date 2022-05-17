@@ -18,6 +18,7 @@ public class WalletService {
     MyTokenRepository tR;
 
     public ArrayList<Wallet> getAllWallets() {
+        System.out.println("llego");
         return (ArrayList<Wallet>) wR.findAll();
     }
 
@@ -25,7 +26,7 @@ public class WalletService {
             return wR.save(wallet);      
     }
 
-    public Wallet getWalletByID(Long id) {
+    public Wallet findById(Long id) {
         return wR.findById(id).get();
     }
     
@@ -37,14 +38,13 @@ public class WalletService {
             return false;
         }
     }
-    
+    /*
     public Wallet addToken(Long idWallet, Long idToken, double cantidad)
     {
         Wallet wallet = getWalletByID(idWallet);
         wallet.TokenWallet.add(idToken,cantidad);
         wR.save(wallet);
         return Wallet;
-    }
-    asd
+    }*/
     
 }
