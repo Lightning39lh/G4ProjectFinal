@@ -21,10 +21,13 @@ public class MyTokenService {
         return (Optional<MyToken>) tR.findByName(name);
     }
     
-    public MyToken getTokenByID(Long id) {
+     public MyToken save(MyToken token) {
+        return tR.save(token);
+    }
+    public MyToken findByTokenId(Long id) {
         return tR.findById(id).get();
     }
-     public boolean removeToken(Long id) {
+     public boolean deleteById(Long id) {
         try {
             tR.deleteById(id);
             return true;
@@ -33,7 +36,7 @@ public class MyTokenService {
         }
     }
     //EDIT
-     public boolean editByID(MyToken token) {
+     public boolean edit(MyToken token) {
         if ((tR.findById(token.getId_token())!=(null))){
             tR.save(token);
             return true;

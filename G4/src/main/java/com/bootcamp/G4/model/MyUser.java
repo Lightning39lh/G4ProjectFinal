@@ -18,7 +18,8 @@ public class MyUser {
     private String username;  
     private String password; 
     private String email;
-
+    
+    @ManyToOne()
     @JoinColumn(name = "role_id")
     private Role role;
 }

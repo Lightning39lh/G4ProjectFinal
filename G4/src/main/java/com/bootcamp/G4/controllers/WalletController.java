@@ -1,5 +1,7 @@
 package com.bootcamp.G4.controllers;
 
+import com.bootcamp.G4.model.Wallet;
+import com.bootcamp.G4.services.WalletService;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("MyWallet")
+@RequestMapping("/MyWallet")
 public class WalletController {
     
     @Autowired
@@ -22,7 +24,7 @@ public class WalletController {
 
     @GetMapping
     public ArrayList<Wallet> getAllWallets(){
-        return wS.getAll();
+        return wS.getAllWallets();
     }
 
     @GetMapping("/{id}")
@@ -34,7 +36,7 @@ public class WalletController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
+    /*
     @PutMapping
     public ResponseEntity<String> put(@RequestBody Wallet wallet){
         if(wS.put(wallet)){
@@ -43,10 +45,10 @@ public class WalletController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
         }
     }
-
+    */
     @PostMapping
     public ResponseEntity saveWallet(@RequestBody Wallet wallet){
-        wS.save(wallet);
+        wS.saveWallet(wallet);
         return ResponseEntity.ok().body("Success.");
     }
 }
