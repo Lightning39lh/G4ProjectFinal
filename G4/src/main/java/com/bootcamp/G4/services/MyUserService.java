@@ -1,8 +1,10 @@
 
 package com.bootcamp.G4.services;
 
+import com.bootcamp.G4.model.MyUser;
 import com.bootcamp.G4.repositories.MyUserRepository;
 import java.util.ArrayList;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,7 @@ public class MyUserService {
     @Autowired
     MyUserRepository uR;
 
-    public ArrayList<MyUser> getAllUsers()) {
+    public ArrayList<MyUser> getAllUsers() {
         return (ArrayList<MyUser>) uR.findAll();
     }
 
@@ -20,12 +22,12 @@ public class MyUserService {
         return uR.save(persona);
     }
 
-    public MyUser getUserByID(Long id) {
-        return uR.findById(id).get();
+    public Optional<MyUser> getUserByID(Long id) {
+        return uR.findById(id);
     }
     //GET BY USER
-    public ArrayList<MyUser> getUserByUserName(String userName) {
-        return uR.findByUserName(userName);
+    public Optional<MyUser> getUserByUserName(String userName) {
+        return uR.findByUsername(userName);
     }
     //DELETE
     public boolean removeUser(Long id) {
@@ -38,7 +40,7 @@ public class MyUserService {
     }
     //EDIT
     public boolean editByUserName(MyUser user) {
-        if (uR.findById(user.getId())){
+        if (uR.findById(user.getId_user()) != null){
             uR.save(user);
             return true;
         } else
