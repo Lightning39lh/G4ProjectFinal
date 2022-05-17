@@ -1,6 +1,8 @@
 
 package com.bootcamp.G4.services;
 
+import com.bootcamp.G4.model.MyToken;
+import com.bootcamp.G4.repositories.MyTokenRepository;
 import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,11 @@ public class MyTokenService {
     @Autowired
     MyTokenRepository tR;
 
-    public ArrayList<MyToken> getAllTokens()) {
+    public ArrayList<MyToken> getAllTokens() {
         return (ArrayList<MyToken>) tR.findAll();
     }
     
-    public Optional<MyToken> getTokenByName(String name)) {
+    public Optional<MyToken> getTokenByName(String name) {
         return (Optional<MyToken>) tR.findByName(name);
     }
     
@@ -32,7 +34,7 @@ public class MyTokenService {
     }
     //EDIT
      public boolean editByID(MyToken token) {
-        if (tR.findById(token.getId())){
+        if ((tR.findById(token.getId_token())!=(null))){
             tR.save(token);
             return true;
         } else

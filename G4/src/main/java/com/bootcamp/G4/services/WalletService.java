@@ -1,6 +1,9 @@
 
 package com.bootcamp.G4.services;
 
+import com.bootcamp.G4.model.Wallet;
+import com.bootcamp.G4.repositories.MyTokenRepository;
+import com.bootcamp.G4.repositories.WalletRepository;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +17,7 @@ public class WalletService {
     @Autowired
     MyTokenRepository tR;
 
-    public ArrayList<Wallet> getAllWallets()) {
+    public ArrayList<Wallet> getAllWallets() {
         return (ArrayList<Wallet>) wR.findAll();
     }
 

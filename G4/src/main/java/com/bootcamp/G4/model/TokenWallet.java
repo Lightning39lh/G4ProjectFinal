@@ -1,8 +1,7 @@
 package com.bootcamp.G4.model;
 
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -16,8 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name= "Token_wallet")
-public class Token_wallet {
-    @GeneratedValue(strategy= GenerationType.AUTO)
+public class TokenWallet {
     private double amount_tokens;
     private MyToken token;
     @ManyToOne

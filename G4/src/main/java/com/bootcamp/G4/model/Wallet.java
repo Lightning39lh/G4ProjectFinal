@@ -23,6 +23,6 @@ public class Wallet {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id_wallet;
     @OneToMany(mappedBy= "wallets")
-    private ArrayList<Token_wallet> token_wallet;
+    private ArrayList<TokenWallet> token_wallet;
     
 }

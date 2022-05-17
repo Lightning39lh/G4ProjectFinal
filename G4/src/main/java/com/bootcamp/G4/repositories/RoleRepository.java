@@ -1,5 +1,6 @@
 package com.bootcamp.G4.repositories;
 
+import com.bootcamp.G4.model.Role;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
