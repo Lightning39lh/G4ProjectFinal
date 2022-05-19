@@ -1,6 +1,7 @@
 
 package com.bootcamp.G4.services;
 
+import com.bootcamp.G4.model.Cuentas;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.repositories.MyTokenRepository;
 import com.bootcamp.G4.repositories.WalletRepository;
@@ -23,10 +24,12 @@ public class WalletService {
     }
 
     public Wallet saveWallet(Wallet wallet) {
+        
             return wR.save(wallet);      
     }
 
     public Wallet findById(Long id) {
+        
         return wR.findById(id).get();
     }
     
@@ -38,13 +41,22 @@ public class WalletService {
             return false;
         }
     }
-    /*
+    public Wallet addToken(Long idWallet, Long idToken)
+    {
+        Wallet wallet = findById(idWallet);
+        Cuentas cuenta = new Cuentas();
+        cuenta.setId_Wallet(idWallet);
+        cuenta.setAmount_tokens(0);
+        cuenta.setToken(tR.getById(idToken));
+        return wallet;
+    }
     public Wallet addToken(Long idWallet, Long idToken, double cantidad)
     {
-        Wallet wallet = getWalletByID(idWallet);
-        wallet.TokenWallet.add(idToken,cantidad);
-        wR.save(wallet);
-        return Wallet;
-    }*/
-    
+        Wallet wallet = findById(idWallet);
+        Cuentas cuenta = new Cuentas();
+        cuenta.setId_Wallet(idWallet);
+        cuenta.setToken(tR.getById(idToken));
+        cuenta.addToken(idToken, cantidad);
+        return wallet;
+    }
 }

@@ -19,12 +19,17 @@ import lombok.NoArgsConstructor;
 @Table(name= "Token_wallet")
 public class Cuentas {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private double amount_tokens;
     
     @OneToOne
     private MyToken token;   
     private Long id_Wallet;
+    
+    public double addToken (Long id, double cantidad){
+        double resultado = this.amount_tokens+cantidad;
+        return resultado;
+    }
     
 }
