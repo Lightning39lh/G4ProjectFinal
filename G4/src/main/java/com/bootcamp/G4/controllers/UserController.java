@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity save(@RequestBody MyUser user){
+    public ResponseEntity<String> save(@RequestBody MyUser user){
         uS.saveUser(user);
         return ResponseEntity.ok().body("Success.");
     }

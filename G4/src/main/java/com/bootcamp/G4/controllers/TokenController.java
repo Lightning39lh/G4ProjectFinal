@@ -39,7 +39,7 @@ public class TokenController {
     }
 
     @PostMapping
-    public ResponseEntity save(@RequestBody MyToken token){
+    public ResponseEntity<String> save(@RequestBody MyToken token){
         tS.save(token);
         return ResponseEntity.ok().body("Success.");
     }
