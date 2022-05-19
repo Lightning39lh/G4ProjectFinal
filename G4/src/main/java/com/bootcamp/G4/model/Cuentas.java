@@ -11,11 +11,13 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString
 @Table(name= "Token_wallet")
 public class Cuentas {
     @Id
@@ -31,5 +33,6 @@ public class Cuentas {
         double resultado = this.amount_tokens+cantidad;
         return resultado;
     }
+
     
 }
