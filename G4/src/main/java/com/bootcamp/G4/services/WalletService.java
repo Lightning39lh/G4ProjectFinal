@@ -46,17 +46,33 @@ public class WalletService {
         cuenta.setId_Wallet(idWallet);
         cuenta.setAmount_tokens(0);
         cuenta.setToken(tR.getById(idToken));
+        System.out.println(cuenta);
         wallet.getToken_wallet().add(cuenta);
         return wallet;
     }
 
-    public Wallet addToken(Long idWallet, Long idToken, double cantidad) {
+    public Wallet buyToken(Long idWallet, Long idToken, double cantidad)
+    {
+        Wallet wallet = findById(idWallet);
+        Cuentas cuenta = new Cuentas();
+       
+        cuenta.setId_Wallet(idWallet);
+        cuenta.setToken(tR.getById(idToken));
+        cuenta.addToken(idToken, cantidad);
+        wallet.getToken_wallet().add(cuenta);
+        
+        return wallet;
+    }
+    /*
+    public boolean SellToken (Long idWallet, Long idToken, double cantidad)
+    {
+        
         Wallet wallet = findById(idWallet);
         Cuentas cuenta = new Cuentas();
         cuenta.setId_Wallet(idWallet);
         cuenta.setToken(tR.getById(idToken));
         cuenta.addToken(idToken, cantidad);
-        wallet.getToken_wallet().add(cuenta);
-        return wallet;
-    }
+        return true;
+        
+    }*/
 }

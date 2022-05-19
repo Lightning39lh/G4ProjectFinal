@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -51,15 +52,15 @@ public class WalletController {
         return ResponseEntity.ok().body("Success.");
     }
 
-    @PostMapping("/AddToken")
-    public ResponseEntity addToken(@RequestBody Long idWallet, @RequestBody Long idToken){
+    @PostMapping("/AddToken/{idWallet}/{idToken}")
+    public ResponseEntity addToken(@PathVariable Long idWallet , @PathVariable long idToken){
         wS.addToken(idWallet, idToken);
         return ResponseEntity.ok().body("Success.");
     }
 
-    @PostMapping("/AddToken")
-    public ResponseEntity addToken(@RequestBody Long idWallet, @RequestBody Long idToken, @RequestBody double cant){
-        wS.addToken(idWallet, idToken, cant);
+    @PostMapping("/BuyToken")
+    public ResponseEntity buyToken(@RequestBody Long idWallet, @RequestBody Long idToken, @RequestBody double cant){
+        wS.buyToken(idWallet, idToken, cant);
         return ResponseEntity.ok().body("Success.");
     }
 }
