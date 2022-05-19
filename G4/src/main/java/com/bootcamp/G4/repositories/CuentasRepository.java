@@ -1,10 +1,17 @@
 package com.bootcamp.G4.repositories;
 
 import com.bootcamp.G4.model.Cuentas;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CuentasRepository extends JpaRepository<Cuentas, Long>{
     
-    public Cuentas findByIdWalletAndToken(Long idWallet, Long idToken); 
+    @Query(value = "SELECT id FROM token_wallet WHERE id_wallet = ?1 AND token_id = ?2", nativeQuery = true)
+    public Long findByIdWalletAndToken(@Param ("1") Long idWallet, @Param ("2") Long idToken);
+
 }

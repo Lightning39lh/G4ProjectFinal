@@ -1,11 +1,14 @@
 package com.bootcamp.G4.services;
 
 import com.bootcamp.G4.model.Cuentas;
+import com.bootcamp.G4.model.Ticket;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.repositories.CuentasRepository;
 import com.bootcamp.G4.repositories.MyTokenRepository;
+import com.bootcamp.G4.repositories.TicketRepository;
 import com.bootcamp.G4.repositories.WalletRepository;
 import java.util.ArrayList;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,9 @@ public class WalletService {
     
     @Autowired
     CuentasRepository cR;
+    
+    @Autowired
+    TicketRepository ticketR;
 
     public ArrayList<Wallet> getAllWallets() {
         return (ArrayList<Wallet>) wR.findAll();
@@ -56,28 +62,58 @@ public class WalletService {
         return wallet;
     }
 
-    public Wallet buyToken(Long idWallet, Long idToken, double cantidad)
+    public void buyToken(Ticket ticket) throws Exception
     {
-        Wallet wallet = findById(idWallet);
-        Cuentas cuenta = new Cuentas();
-       
-        cuenta.setId_Wallet(idWallet);
-        cuenta.setToken(tR.getById(idToken));
-        cuenta.addToken(idToken, cantidad);
-        //wallet.getToken_wallet().add(cuenta);
+        ticketR.save(ticket);
+
+        Cuentas cuenta;
+        Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_Wallet(),ticket.getId_Token());
+        cuenta = cR.findById(cuentaId).get();
+        System.out.println("previo"+cuenta);
+        cuenta.addToken(ticket.getId_Token(), ticket.getCantidad());
+        System.out.println("post "+ cuenta);
         cR.save(cuenta);
-        return wallet;
+ 
+        
+
     }
-    /*
-    public boolean SellToken (Long idWallet, Long idToken, double cantidad)
+    
+    public int sellToken (Ticket ticket) throws Exception
     {
+        ticketR.save(ticket);
+        System.out.println("ticket");
+        //Wallet wallet = findById(ticket.getId_Wallet());
+        Cuentas cuenta;
+        Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_Wallet(),ticket.getId_Token());
+        cuenta = cR.findById(cuentaId).get();
+        double resultado = cuenta.getAmount_tokens() - ticket.getCantidad();
+        if (resultado > 0) {
+            Cuentas cuenta2;   
+            Long cuentaId2= cR.findByIdWalletAndToken(ticket.getId_Wallet(),1L); // la cantidad de usd 
+            cuenta2 = cR.findById(cuentaId2).get();
+            double resultado2 = cuenta2.getAmount_tokens() - 0.05;
+            if (resultado2 >0){
+                cuenta.addToken(ticket.getId_Token(), - ticket.getCantidad());
+                cuenta.addToken(1L, - 0.05);
+                cR.save(cuenta);
+                return 1; //SUCESS
+            }
+                
+            else {
+               ticketR.deleteById(ticket.getId());
+                return 2; //REQUIERE MAS USD PARA FEE
+                
+            }
+        }
         
-        Wallet wallet = findById(idWallet);
-        Cuentas cuenta = new Cuentas();
-        cuenta.setId_Wallet(idWallet);
-        cuenta.setToken(tR.getById(idToken));
-        cuenta.addToken(idToken, cantidad);
-        return true;
+        else {
+            ticketR.deleteById(ticket.getId());
+            return 3; //NO TIENE ESE TOKEN SUFICIENTE
+            
+        }
         
-    }*/
+       
+        
+       
+    }  
 }

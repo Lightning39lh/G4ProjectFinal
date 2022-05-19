@@ -1,5 +1,6 @@
 package com.bootcamp.G4.controllers;
 
+import com.bootcamp.G4.model.Ticket;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.services.WalletService;
 import java.util.ArrayList;
@@ -58,9 +59,17 @@ public class WalletController {
         return ResponseEntity.ok().body("Success.");
     }
 
-    @PostMapping("/BuyToken/{idWallet}/{idToken}/{cant}")
-    public ResponseEntity buyToken(@PathVariable Long idWallet, @PathVariable Long idToken, @PathVariable double cant){
-        wS.buyToken(idWallet, idToken, cant);
+    @PostMapping("/BuyToken/")
+    public ResponseEntity buyToken(@RequestBody Ticket ticket) throws Exception{
+       wS.buyToken(ticket);
         return ResponseEntity.ok().body("Success.");
     }
+    
+    @PostMapping("/SellToken/")
+    public ResponseEntity sellToken(@RequestBody Ticket ticket) throws Exception{
+       System.out.println("controller");
+        wS.sellToken(ticket);
+        return ResponseEntity.ok().body("Success.");
+    }
+    
 }
