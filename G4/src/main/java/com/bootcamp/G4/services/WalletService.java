@@ -2,6 +2,7 @@ package com.bootcamp.G4.services;
 
 import com.bootcamp.G4.model.Cuentas;
 import com.bootcamp.G4.model.Wallet;
+import com.bootcamp.G4.repositories.CuentasRepository;
 import com.bootcamp.G4.repositories.MyTokenRepository;
 import com.bootcamp.G4.repositories.WalletRepository;
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ public class WalletService {
     
     @Autowired
     MyTokenRepository tR;
+    
+    @Autowired
+    CuentasRepository cR;
 
     public ArrayList<Wallet> getAllWallets() {
         return (ArrayList<Wallet>) wR.findAll();
@@ -47,7 +51,8 @@ public class WalletService {
         cuenta.setAmount_tokens(0);
         cuenta.setToken(tR.getById(idToken));
         System.out.println(cuenta);
-        wallet.getToken_wallet().add(cuenta);
+        cR.save(cuenta);
+       // wallet.getToken_wallet().add(cuenta);
         return wallet;
     }
 
@@ -59,8 +64,8 @@ public class WalletService {
         cuenta.setId_Wallet(idWallet);
         cuenta.setToken(tR.getById(idToken));
         cuenta.addToken(idToken, cantidad);
-        wallet.getToken_wallet().add(cuenta);
-        
+        //wallet.getToken_wallet().add(cuenta);
+        cR.save(cuenta);
         return wallet;
     }
     /*

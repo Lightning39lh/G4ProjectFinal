@@ -58,8 +58,8 @@ public class WalletController {
         return ResponseEntity.ok().body("Success.");
     }
 
-    @PostMapping("/BuyToken")
-    public ResponseEntity buyToken(@RequestBody Long idWallet, @RequestBody Long idToken, @RequestBody double cant){
+    @PostMapping("/BuyToken/{idWallet}/{idToken}/{cant}")
+    public ResponseEntity buyToken(@PathVariable Long idWallet, @PathVariable Long idToken, @PathVariable double cant){
         wS.buyToken(idWallet, idToken, cant);
         return ResponseEntity.ok().body("Success.");
     }
