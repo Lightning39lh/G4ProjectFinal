@@ -15,5 +15,6 @@ public class MyToken {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String name;
-    private double price;  
+    private double price;
+    
 }

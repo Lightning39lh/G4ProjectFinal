@@ -22,6 +22,7 @@ public class MyTokenService {
     }
     
      public MyToken save(MyToken token) {
+         
         return tR.save(token);
     }
     public MyToken findByTokenId(Long id) {

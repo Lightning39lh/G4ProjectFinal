@@ -13,12 +13,16 @@ public class MyUserService {
     
     @Autowired
     MyUserRepository uR;
+    
+    @Autowired
+    WalletService wS;
 
     public ArrayList<MyUser> getAllUsers() {
         return (ArrayList<MyUser>) uR.findAll();
     }
 
     public MyUser saveUser(MyUser user) {
+        //wS.saveWallet(wallet);
         return uR.save(user);
     }
 
