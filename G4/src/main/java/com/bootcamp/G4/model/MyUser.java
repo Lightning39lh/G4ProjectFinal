@@ -14,12 +14,16 @@ import lombok.NoArgsConstructor;
 public class MyUser {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id_user;
+    private Long id;
     private String username;  
     private String password; 
     private String email;
     
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToOne
+    @JoinColumn(name = "wallet_id")
+    private Wallet wallet;
 }
