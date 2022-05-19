@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CuentasRepository extends JpaRepository<Cuentas, Long>{
     
+    public Cuentas findByIdWalletAndToken(Long idWallet, Long idToken); 
 }

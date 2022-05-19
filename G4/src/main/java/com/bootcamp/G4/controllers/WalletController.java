@@ -46,7 +46,7 @@ public class WalletController {
     }
     */
     @PostMapping
-    public ResponseEntity saveWallet(@RequestBody Wallet wallet){
+    public ResponseEntity<String> saveWallet(@RequestBody Wallet wallet){
         wS.saveWallet(wallet);
         return ResponseEntity.ok().body("Success.");
     }
