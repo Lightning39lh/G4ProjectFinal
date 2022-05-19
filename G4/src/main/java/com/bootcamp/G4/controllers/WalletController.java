@@ -50,4 +50,16 @@ public class WalletController {
         wS.saveWallet(wallet);
         return ResponseEntity.ok().body("Success.");
     }
+
+    @PostMapping("/AddToken")
+    public ResponseEntity addToken(@RequestBody Long idWallet, @RequestBody Long idToken){
+        wS.addToken(idWallet, idToken);
+        return ResponseEntity.ok().body("Success.");
+    }
+
+    @PostMapping("/AddToken")
+    public ResponseEntity addToken(@RequestBody Long idWallet, @RequestBody Long idToken, @RequestBody double cant){
+        wS.addToken(idWallet, idToken, cant);
+        return ResponseEntity.ok().body("Success.");
+    }
 }
