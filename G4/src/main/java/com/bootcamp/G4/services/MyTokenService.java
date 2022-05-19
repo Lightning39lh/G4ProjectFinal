@@ -37,7 +37,7 @@ public class MyTokenService {
     }
     //EDIT
      public boolean edit(MyToken token) {
-        if ((tR.findById(token.getId_token())!=(null))){
+        if ((tR.findById(token.getId())!=(null))){
             tR.save(token);
             return true;
         } else

@@ -40,7 +40,7 @@ public class MyUserService {
     }
     //EDIT
     public boolean editByUserName(MyUser user) {
-        if (uR.findById(user.getId_user()) != null){
+        if (uR.findById(user.getId()) != null){
             uR.save(user);
             return true;
         } else

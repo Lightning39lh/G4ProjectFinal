@@ -24,10 +24,12 @@ import lombok.NoArgsConstructor;
 public class Wallet {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id_wallet;
-    @OneToMany(targetEntity = Cuentas.class, cascade =  CascadeType.ALL)
-    @JoinColumn(name= "id_wallet", referencedColumnName= "id_wallet")
+    private Long id;
     
+
+
+    @OneToMany(targetEntity = Cuentas.class, cascade =  CascadeType.ALL)
+    @JoinColumn(name= "id_wallet", referencedColumnName= "id") 
     private List<Cuentas> token_wallet;
     
 }

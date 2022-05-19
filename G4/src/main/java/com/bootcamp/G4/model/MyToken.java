@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class MyToken {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id_token;
+    private Long id;
     private String name;
     private double price;  
 }
