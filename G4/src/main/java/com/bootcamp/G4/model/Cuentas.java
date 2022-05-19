@@ -25,9 +25,7 @@ public class Cuentas {
     private Long id;
     private double amount_tokens;
     @OneToOne
-    private MyToken token;
-    /*@ManyToOne
-    @JoinColumn(name="id_wallet")
-    private Wallet wallet;*/
+    private MyToken token;   
+    private Long id_Wallet;
     
 }
