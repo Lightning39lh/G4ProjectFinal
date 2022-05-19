@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,7 +25,9 @@ public class Wallet {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id_wallet;
-    @OneToMany(mappedBy= "wallet", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(targetEntity = Cuentas.class, cascade =  CascadeType.ALL)
+    @JoinColumn(name= "id_wallet", referencedColumnName= "id_wallet")
+    
     private List<Cuentas> token_wallet;
     
 }
