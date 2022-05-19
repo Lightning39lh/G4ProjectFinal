@@ -1,5 +1,6 @@
 package com.bootcamp.G4.controllers;
 
+import com.bootcamp.G4.model.Ticket;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.services.WalletService;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -46,20 +48,28 @@ public class WalletController {
     }
     */
     @PostMapping
-    public ResponseEntity<String> saveWallet(@RequestBody Wallet wallet){
+    public ResponseEntity saveWallet(@RequestBody Wallet wallet){
         wS.saveWallet(wallet);
         return ResponseEntity.ok().body("Success.");
     }
 
     @PostMapping("/AddToken/{idWallet}/{idToken}")
-    public ResponseEntity<String> addToken(@PathVariable Long idWallet , @PathVariable long idToken){
+    public ResponseEntity addToken(@PathVariable Long idWallet , @PathVariable long idToken){
         wS.addToken(idWallet, idToken);
         return ResponseEntity.ok().body("Success.");
     }
 
-    @PostMapping("/BuyToken")
-    public ResponseEntity<String> buyToken(@RequestBody Long idWallet, @RequestBody Long idToken, @RequestBody double cant){
-        wS.buyToken(idWallet, idToken, cant);
+    @PostMapping("/BuyToken/")
+    public ResponseEntity buyToken(@RequestBody Ticket ticket) throws Exception{
+       wS.buyToken(ticket);
         return ResponseEntity.ok().body("Success.");
     }
+    
+    @PostMapping("/SellToken/")
+    public ResponseEntity sellToken(@RequestBody Ticket ticket) throws Exception{
+       System.out.println("controller");
+        wS.sellToken(ticket);
+        return ResponseEntity.ok().body("Success.");
+    }
+    
 }
