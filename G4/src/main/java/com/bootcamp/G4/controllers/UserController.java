@@ -1,6 +1,9 @@
 package com.bootcamp.G4.controllers;
 
+import com.bootcamp.G4.model.MyUser;
+import com.bootcamp.G4.services.MyUserService;
 import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,20 +17,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("MyUsers")
+@RequestMapping("/MyUsers")
 public class UserController {
     
     @Autowired
     private MyUserService uS;
+    
+ 
 
     @GetMapping
-    public ResponseEntity<ArrayList<MyUser>> getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(uS.getAll());
+    public ResponseEntity<ArrayList<MyUser>> getAllUsers(){
+        return ResponseEntity.status(HttpStatus.OK).body(uS.getAllUsers());
     }
 
     @GetMapping("/{username}")
     public ResponseEntity<MyUser> findByUserName(@PathVariable("username") String username){
-        MyUser user = uS.findByUserName(username);
+        MyUser user = uS.findByUsername(username);
         if(user!=null){
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }else{
@@ -36,19 +41,23 @@ public class UserController {
     }
 
     @PostMapping
-<<<<<<< Updated upstream
-    public ResponseEntity save(@RequestBody MyUser user){
-        uS.save(user);
-=======
-    public ResponseEntity<Object> save(@RequestBody MyUser user){
+    public ResponseEntity<String> save(@RequestBody MyUser user){
         uS.saveUser(user);
->>>>>>> Stashed changes
         return ResponseEntity.ok().body("Success.");
     }
+    /*
+    @PostMapping("/{user_id}")
+    public ResponseEntity save(@PathVariable(value = "user_id") Long user_id, @RequestBody MyUser user) {
+        Role role = new Role (user_id, )
+        proyectRequest.setPerson(p);
+        Proyect newProyect = proyectService.save(proyectRequest);
+        return ResponseEntity.ok().body("Success.");
+    }*/
+    
     
     @PutMapping
     public ResponseEntity<String> put(@RequestBody MyUser user){
-        if(uS.put(user)){
+        if(uS.editByUserName(user)){
             return ResponseEntity.status(HttpStatus.OK).body("Edited Succesfull");
         }else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
@@ -56,11 +65,11 @@ public class UserController {
     }
     
     @DeleteMapping("/{id}")
-    public ReponseEntity<String>delete(@PathVariable("id")long id){
-        if(uS.delete(id)){
+    public ResponseEntity<String>delete(@PathVariable("id")long id){
+        if(uS.deleteById(id)){
             return ResponseEntity.status(HttpStatus.OK).body("User Deleted");
         }else{
-            return ReponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
         }
     }
     
