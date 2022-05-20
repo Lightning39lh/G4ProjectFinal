@@ -1,5 +1,6 @@
 package com.bootcamp.G4.controllers;
 
+import com.bootcamp.G4.model.Exchange;
 import com.bootcamp.G4.model.Ticket;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.services.WalletService;
@@ -36,31 +37,22 @@ public class WalletController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-    /*
-    @PutMapping
-    public ResponseEntity<String> put(@RequestBody Wallet wallet){
-        if(wS.put(wallet)){
-            return ResponseEntity.status(HttpStatus.OK).body("Edited Succesfull");
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error");
-        }
-    }
-    */
+    
     @PostMapping
     public ResponseEntity<String> saveWallet(@RequestBody Wallet wallet){
         wS.saveWallet(wallet);
         return ResponseEntity.ok().body("Success.");
     }
 
-    @PostMapping("/AddToken/{idWallet}/{idToken}")
-    public ResponseEntity<String> addToken(@PathVariable Long idWallet , @PathVariable long idToken){
-        wS.addToken(idWallet, idToken);
+    @PostMapping("/AddToken/{idWallet}/{nameToken}")
+    public ResponseEntity<String> addToken(@PathVariable Long idWallet , @PathVariable String nameToken){
+        wS.addToken(idWallet, nameToken);
         return ResponseEntity.ok().body("Success.");
     }
-
+    
     @PostMapping("/BuyToken/")
     public ResponseEntity<String> buyToken(@RequestBody Ticket ticket) throws Exception{
-       wS.buyToken(ticket);
+        wS.buyToken(ticket);
         return ResponseEntity.ok().body("Success.");
     }
     
@@ -73,13 +65,12 @@ public class WalletController {
         else return ResponseEntity.status(400).body("Not enough Token");
     }
     
-    @PostMapping("/ChangeToken/{idNuevo}")
-    public ResponseEntity<Object> changeToken(@RequestBody Ticket ticket, @PathVariable Long idNuevo) throws Exception {
+    @PostMapping("/ExchangeToken/")
+    public ResponseEntity<Object> exchangeToken(@RequestBody Exchange exchange) throws Exception {
         int e;
-        e = wS.ChangeToken(ticket, idNuevo);
+        e = wS.exchangeToken(exchange);
         if(e==1)return ResponseEntity.status(200).body("Success.");
         else if(e==2) return ResponseEntity.status(400).body("Fee error");
         else return ResponseEntity.status(400).body("Not enough Token");
     }
-    
 }

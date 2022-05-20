@@ -1,6 +1,7 @@
 
 package com.bootcamp.G4.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,8 +21,18 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private Long id_Wallet;
-    private Long id_Token;
-    private double cantidad;
+    private Long id_wallet;
+    private String name_token;
+    private double amount;
+    boolean positive;
+
+    public Ticket(Long id_wallet, String name_token, double amount) {
+        this.id_wallet = id_wallet;
+        this.name_token = name_token;
+        this.amount = amount;
+    }
+
+   
+    
     
 }

@@ -25,11 +25,10 @@ public class Cuentas {
     private Long id;
     private double amount_tokens;
     
-    @OneToOne
-    private MyToken token;   
+    private String tokenName;   
     private Long id_Wallet;
     
-    public void addToken (Long id, double cantidad){
+    public void addToken (double cantidad){
         this.amount_tokens+=cantidad;
     }
 
