@@ -29,10 +29,26 @@ public class MyUserService {
     public Optional<MyUser> getUserByID(Long id) {
         return uR.findById(id);
     }
+    /*
     //GET BY USER
     public Optional<MyUser> findByUserName(String userName) {
         return uR.findByUsername(userName);
     }
+    */
+
+
+    public MyUser findByUsername(String username)
+    {
+       MyUser u = uR.findByUsername(username).get();
+        if(u != null)
+        {
+            return u;
+        }
+        else
+        return null;
+
+    }
+
     //DELETE
     public boolean deleteById(Long id) {
         try {
