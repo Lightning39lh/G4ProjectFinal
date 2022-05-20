@@ -3,7 +3,6 @@ package com.bootcamp.G4.controllers;
 import com.bootcamp.G4.model.MyUser;
 import com.bootcamp.G4.services.MyUserService;
 import java.util.ArrayList;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -32,8 +31,8 @@ public class UserController {
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<Optional<MyUser>> findByUserName(@PathVariable("username") String username){
-        Optional<MyUser> user = uS.findByUserName(username);
+    public ResponseEntity<MyUser> findByUserName(@PathVariable("username") String username){
+        MyUser user = uS.findByUsername(username);
         if(user!=null){
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }else{
