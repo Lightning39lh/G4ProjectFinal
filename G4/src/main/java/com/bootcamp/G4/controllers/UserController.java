@@ -36,8 +36,13 @@ public class UserController {
     }
 
     @PostMapping
+<<<<<<< Updated upstream
     public ResponseEntity save(@RequestBody MyUser user){
         uS.save(user);
+=======
+    public ResponseEntity<Object> save(@RequestBody MyUser user){
+        uS.saveUser(user);
+>>>>>>> Stashed changes
         return ResponseEntity.ok().body("Success.");
     }
     

@@ -46,11 +46,14 @@ public class WalletController {
 
     @PostMapping
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public ResponseEntity saveWallet(@RequestBody Wallet wallet){
         wS.save(wallet);
         return ResponseEntity.ok().body("Success.");
     }
 =======
+=======
+>>>>>>> Stashed changes
     public ResponseEntity<Object> saveWallet(@RequestBody Wallet wallet){
         wS.saveWallet(wallet);
         return ResponseEntity.ok().body("Success.");
