@@ -1,6 +1,7 @@
 package com.bootcamp.G4.controllers;
 
-import com.bootcamp.G4.config.JWTTokenUtil;
+import com.bootcamp.G4.config.JwtTokenUtil;
+import com.bootcamp.G4.model.AuthToken;
 import com.bootcamp.G4.model.MyUser;
 import com.bootcamp.G4.services.UserService;
 
@@ -14,41 +15,39 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/login")
 public class LoginController {
-    
-    @Autowired
-    private UserService uS;
 
     @Autowired
-    AuthenticationManager authManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JWTTokenUtil jTU;
+    private JwtTokenUtil jwtTokenUtil;
 
-    @PostMapping()
-    public ResponseEntity<String> createToken(@RequestBody MyUser user)
-    {
-        authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-        UserDetails uD = uS.loadUserByUsername(user.getUsername());
-        String token =jTU.generateToken(uD);
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
-        return ResponseEntity.status(200).body(token);
-    }
+    @Autowired
+    private UserService us;
 
-    /*
-    @RequestMapping(value = "/generate-token", method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<AuthToken> register(@RequestBody MyUser loginUser) throws AuthenticationException {
 
-        AuthenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
         final UserDetails user = us.loadUserByUsername(loginUser.getUsername());
-        final String token = JWTTokenUtil.generateToken(user);
+        final String token = jwtTokenUtil.generateToken(user);
         return ResponseEntity.status(HttpStatus.OK).body(new AuthToken(token, user.getUsername()));
     }
-    */
+
 }
+
+    /*
+    @GetMapping("/{user}/{password}")
+    public ResponseEntity createToken(@PathVariable("user") String user, @PathVariable("password") String password) {
+        authManager.authenticate(new UsernamePasswordAuthenticationToken(user, password));
+        UserDetails uD = uS.loadUserByUsername(user);
+        String token = jTU.generateToken(uD);
+        return ResponseEntity.status(200).body(token);
+    }*/
+
+

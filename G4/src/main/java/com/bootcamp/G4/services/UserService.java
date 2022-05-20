@@ -1,11 +1,5 @@
 package com.bootcamp.G4.services;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.bootcamp.G4.model.MyUser;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,11 +9,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service("UserDetailsService")
-public class UserService implements UserDetailsService{
+import java.util.HashSet;
+import java.util.Set;
+
+import com.bootcamp.G4.model.MyUser;
+import com.bootcamp.G4.repositories.UserRepository;
+
+@Service
+public class UserService implements UserDetailsService {
 
     @Autowired
-    MyUserService ur;
+    UserRepository ur;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -38,6 +38,4 @@ public class UserService implements UserDetailsService{
         }
 
     }
-
-    
 }

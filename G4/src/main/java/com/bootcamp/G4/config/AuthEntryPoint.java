@@ -20,7 +20,8 @@ public class AuthEntryPoint extends BasicAuthenticationEntryPoint{
     }
     @Override
     public void afterPropertiesSet(){
-        setRealmName("USER");
+        setRealmName("admin");
         super.afterPropertiesSet();
     }
+
 }
