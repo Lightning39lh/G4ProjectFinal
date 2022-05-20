@@ -8,9 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bootcamp.G4.services.MyUserService;
-import com.bootcamp.G4.services.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,19 +22,13 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 
 @Component
-public class JWTAuthenticationFilter extends OncePerRequestFilter {
-
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private JWTTokenUtil jwtTokenUtil;
-    @Autowired
-    UserService uS;
-
-    @Autowired
-    private MyUserService uService;
+    private JwtTokenUtil jwtTokenUtil;
 
     private final String TOKEN_PREFIX = "Bearer ";
 
@@ -55,9 +46,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                     ) {
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                     if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-
-                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, Arrays.asList(new SimpleGrantedAuthority(uService.findByUsername(username).getRole().getName())));
-
+                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
                         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
                         logger.info("authenticated user " + username + ", setting security context");
                         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -67,7 +56,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                 logger.error("an error occured during getting username from token", e);
             } catch (ExpiredJwtException e) {
                 logger.warn("the token is expired and not valid anymore", e);
-            }catch(SignatureException e){
+            } catch(SignatureException e){
                 logger.error("Authentication Failed. Username or Password not valid.");
             }
         } else {
