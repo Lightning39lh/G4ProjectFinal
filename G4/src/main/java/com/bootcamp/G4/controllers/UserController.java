@@ -23,8 +23,6 @@ public class UserController {
     @Autowired
     private MyUserService uS;
     
- 
-
     @GetMapping
     public ResponseEntity<ArrayList<MyUser>> getAllUsers(){
         return ResponseEntity.status(HttpStatus.OK).body(uS.getAllUsers());

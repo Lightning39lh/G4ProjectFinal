@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 public class LoginService {
 
     public Object loadUser(Login login) {
+        
         String url = "http://localhost:8080/login";
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForObject(url, login, Login.class);
