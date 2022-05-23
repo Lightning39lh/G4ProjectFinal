@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class UserController {
-    
+    /*
     @Autowired
     UserService uS;
     
-    @GetMapping("all")
+    @GetMapping("/all")
     public String getAllUsers(Model model) {
         model.addAttribute("users", uS.getAllUsers());
         return "usersIndex";
-    }
+    }*/
 }
