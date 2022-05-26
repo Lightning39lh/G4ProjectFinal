@@ -1,17 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Cuenta } from 'src/app/model/Cuenta';
 import { Wallet } from 'src/app/model/Wallet';
+import { Crypto } from 'src/app/model/Crypto';
 import { WalletService } from 'src/app/services/wallet.service';
+import { ApicryptoService } from 'src/app/services/apicrypto.service';
 
 @Component({
   selector: 'app-my-wallet',
   templateUrl: './my-wallet.component.html',
   styleUrls: ['./my-wallet.component.css']
 })
+
 export class MyWalletComponent implements OnInit {
   
+  name : string = "btc"
+  cantidad : number = 0
   wallet: Wallet= new Wallet(0,[]);
-  constructor(public wS:WalletService) { }
+  crypto: Crypto = new Crypto();
+  constructor(private wS:WalletService, private aS:ApicryptoService) { }
 
   async ngOnInit(): Promise<void> {
     
@@ -20,8 +26,20 @@ export class MyWalletComponent implements OnInit {
       console.log(JSON.stringify(data));
       this.wallet=data;
       console.log(this.wallet);
-      console.log("LO DE ARRIBA ES LA WALLET")
+      console.log("LO DE ARRIBA ES LA WALLET");
+    })
+
+    this.aS.getToken(this.name).subscribe(data => {
+      this.crypto = data
+      console.log(data)
+      console.log("Objeto API", this.crypto);
     })
   }
 
+  search(){
+    this.aS.getToken(this.name);
+  }
+
 }
+
+
