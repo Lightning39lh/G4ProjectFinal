@@ -23,7 +23,7 @@ export class WalletService {
       console.log("LO DE ARRIBA ES EL ID")
     })
      //para que me llegue a cargar el ID
-     await new Promise(f => setTimeout(f, 10));
+     await new Promise(f => setTimeout(f, 50));
     console.log(this.id);
     console.log("LO DE ARRIBA ES EL ID actualizado")
    return this.http.get<any>(this.url+"MyWallet/"+this.id);
