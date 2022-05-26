@@ -4,6 +4,7 @@ import com.bootcamp.G4.model.Cuentas;
 import com.bootcamp.G4.model.Exchange;
 
 import com.bootcamp.G4.model.Ticket;
+import com.bootcamp.G4.model.TokenReducido;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.repositories.CuentasRepository;
 
@@ -48,11 +49,11 @@ public class WalletService {
         }
     }
 
-    public void addToken(Long idWallet, String nameToken){
+    public void addToken(TokenReducido tokenReducido){
         Cuentas cuenta = new Cuentas();
-        cuenta.setId_Wallet(idWallet);
+        cuenta.setId_Wallet(tokenReducido.getId_Wallet());
         cuenta.setAmount_tokens(0);
-        cuenta.setTokenName(nameToken);
+        cuenta.setTokenName(tokenReducido.getTokenName());
         System.out.println(cuenta);
         cR.save(cuenta);
     }
