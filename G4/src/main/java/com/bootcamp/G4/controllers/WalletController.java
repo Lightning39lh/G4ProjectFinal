@@ -48,9 +48,9 @@ public class WalletController {
     }
 
     @PostMapping("/AddToken/")
-    public ResponseEntity<String> addToken(@RequestBody TokenReducido tokenReducido){
+    public ResponseEntity<TokenReducido> addToken(@RequestBody TokenReducido tokenReducido){
         wS.addToken(tokenReducido);
-        return ResponseEntity.ok().body("Success.");
+        return ResponseEntity.ok().body(tokenReducido);
     }
     
     @PostMapping("/BuyToken/")

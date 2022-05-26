@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cuenta } from 'src/app/model/Cuenta';
 import { Wallet } from 'src/app/model/Wallet';
 import { Crypto } from 'src/app/model/Crypto';
@@ -16,8 +17,9 @@ export class MyWalletComponent implements OnInit {
   name : string = "btc"
   cantidad : number = 0
   wallet: Wallet= new Wallet(0,[]);
+
   crypto: Crypto = new Crypto();
-  constructor(private wS:WalletService, private aS:ApicryptoService) { }
+  constructor(private wS:WalletService, private aS:ApicryptoService,private ruta:Router) { }
 
   async ngOnInit(): Promise<void> {
     
@@ -36,10 +38,14 @@ export class MyWalletComponent implements OnInit {
     })
   }
 
+  toAddTokens()
+  {
+      this.ruta.navigate(['addToken']);
+  }
+
   search(){
     this.aS.getToken(this.name);
   }
-
 }
 
 
