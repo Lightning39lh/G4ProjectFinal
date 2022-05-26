@@ -1,11 +1,13 @@
 package com.bootcamp.G4.services;
 
 import com.bootcamp.G4.model.Cuentas;
-import com.bootcamp.G4.model.MyToken;
+import com.bootcamp.G4.model.Exchange;
+
 import com.bootcamp.G4.model.Ticket;
+import com.bootcamp.G4.model.TokenReducido;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.repositories.CuentasRepository;
-import com.bootcamp.G4.repositories.MyTokenRepository;
+
 import com.bootcamp.G4.repositories.TicketRepository;
 import com.bootcamp.G4.repositories.WalletRepository;
 import java.util.ArrayList;
@@ -17,10 +19,7 @@ public class WalletService {
     
     @Autowired
     WalletRepository wR;
-    
-    @Autowired
-    MyTokenRepository tR;
-    
+
     @Autowired
     CuentasRepository cR;
     
@@ -50,45 +49,44 @@ public class WalletService {
         }
     }
 
-    public Wallet addToken(Long idWallet, Long idToken){
-        Wallet wallet = findById(idWallet);
+    public void addToken(TokenReducido tokenReducido){
         Cuentas cuenta = new Cuentas();
-        cuenta.setId_Wallet(idWallet);
+        cuenta.setId_Wallet(tokenReducido.getId_Wallet());
         cuenta.setAmount_tokens(0);
-        cuenta.setToken(tR.getById(idToken));
+        cuenta.setTokenName(tokenReducido.getTokenName());
         System.out.println(cuenta);
         cR.save(cuenta);
-       // wallet.getToken_wallet().add(cuenta);
-        return wallet;
     }
 
     public void buyToken(Ticket ticket) throws Exception
     {
+        ticket.setPositive(true);
         ticketR.save(ticket);
-
         Cuentas cuenta;
-        Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_Wallet(),ticket.getId_Token());
+        Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_wallet(),ticket.getName_token());          
         cuenta = cR.findById(cuentaId).get();
-        cuenta.addToken(ticket.getId_Token(), ticket.getCantidad());
+        cuenta.addToken(ticket.getAmount());
+        
         cR.save(cuenta);
 
     }
     
     public int sellToken (Ticket ticket) throws Exception
     {
+        ticket.setPositive(false);
         ticketR.save(ticket);
         Cuentas cuenta;
-        Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_Wallet(),ticket.getId_Token());
+        Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_wallet(),ticket.getName_token());
         cuenta = cR.findById(cuentaId).get();
-        double resultado = cuenta.getAmount_tokens() - ticket.getCantidad();
+        double resultado = cuenta.getAmount_tokens() - ticket.getAmount();
         if (resultado > 0) {
             Cuentas cuentaUSD;   
-            Long cuentaUSDId= cR.findByIdWalletAndToken(ticket.getId_Wallet(),1L); // la cantidad de usd 
+            Long cuentaUSDId= cR.findByIdWalletAndToken(ticket.getId_wallet(),"USD"); // la cantidad de usd 
             cuentaUSD = cR.findById(cuentaUSDId).get();
             double resultado2 = cuentaUSD.getAmount_tokens() - 0.05;
             if (resultado2 >0){
-                cuenta.addToken(ticket.getId_Token(), - ticket.getCantidad());
-                cuentaUSD.addToken(1L, - 0.05);
+                cuenta.addToken(- ticket.getAmount());
+                cuentaUSD.addToken(- 0.05);
                 cR.save(cuenta);
                 cR.save(cuentaUSD);
                 return 1; //SUCESS
@@ -104,51 +102,39 @@ public class WalletService {
         }
     }  
     
-    public int ChangeToken (Ticket ticket, long idToken) throws Exception
-    {
-        ticketR.save(ticket);
-        System.out.println(idToken);
+    public int exchangeToken (Exchange exchange) throws Exception
+    {     
         Cuentas cuenta1;
-        Long cuenta1Id= cR.findByIdWalletAndToken(ticket.getId_Wallet(),ticket.getId_Token());
+        Long cuenta1Id= cR.findByIdWalletAndToken(exchange.getId_wallet(),exchange.getTokenName1());
         cuenta1 = cR.findById(cuenta1Id).get();
-        double resultado = cuenta1.getAmount_tokens() - ticket.getCantidad(); //me fijo si tengo esa cantidad de token
+        double resultado = cuenta1.getAmount_tokens() - exchange.getAmount(); //me fijo si tengo esa cantidad de token
          if (resultado > 0)
          {
-              Cuentas cuentaUSD;   
-            Long cuentaUSDId= cR.findByIdWalletAndToken(ticket.getId_Wallet(),1L); // la cantidad de usd 
+            Cuentas cuentaUSD;   
+            Long cuentaUSDId= cR.findByIdWalletAndToken(exchange.getId_wallet(),"USD"); // la cantidad de usd 
             cuentaUSD = cR.findById(cuentaUSDId).get();
             double resultado2 = cuentaUSD.getAmount_tokens() - 0.05;
-            if (resultado2 >0){     
+            if (resultado2 >0){ 
                 Cuentas cuenta2;
-                Long cuenta2Id= cR.findByIdWalletAndToken(ticket.getId_Wallet(),idToken);
+                Long cuenta2Id= cR.findByIdWalletAndToken(exchange.getId_wallet(),exchange.getTokenName2());
                 cuenta2 = cR.findById(cuenta2Id).get();
-     
-                System.out.println(cuenta2);
-
-                double usdEquivalent = ticket.getCantidad()/cuenta1.getToken().getPrice(); //cantidad a usd
-                System.out.println(usdEquivalent);
-                
-                MyToken newToken = tR.findById(idToken).get(); 
-                double newPrice = usdEquivalent/newToken.getPrice();
-                System.out.println(newToken.getPrice());
-                System.out.println(newPrice);
-                cuenta2.addToken(idToken, newPrice);
-                
-                //le resto lo que saque
-                cuenta1.addToken(ticket.getId_Token(), - ticket.getCantidad());
-                cuentaUSD.addToken(1L, - 0.05);
-                cR.save(cuenta1);
-                cR.save(cuentaUSD);
-                cR.save(cuenta2);
+                double usdEquivalent = exchange.getAmount()*exchange.getPriceToken1(); //cantidad a usd
+                double newAmount = usdEquivalent/exchange.getPriceToken2()*0.995;  
+                //BUY
+                Ticket buyTicket = new Ticket(exchange.getId_wallet(), exchange.getTokenName2(), newAmount);  
+                buyToken(buyTicket);      
+                //SELL
+                Ticket sellTicket = new Ticket(exchange.getId_wallet(), exchange.getTokenName1(), exchange.getAmount());
+                sellToken(sellTicket);
                 return 1; //SUCESS
             }     else {
-               ticketR.deleteById(ticket.getId());
+
                 return 2; //REQUIERE MAS USD PARA FEE  
             }
         }
         else {
-            ticketR.deleteById(ticket.getId());
-            return 3; //NO TIENE ESE TOKEN SUFICIENTE
+            return 3;
+             //NO TIENE ESE TOKEN SUFICIENTE
         }
     }
 }

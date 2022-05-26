@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-secondary">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-light bg-dark ">
+            <div class="container-fluid ">
+              <a class="navbar-brand mx-auto text-white" href="#">Home</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
+            <div class="container-fluid ">
+                <a class="navbar-brand mx-auto text-white" href="#">Buy Cryptos</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              </div>
+              <div class="container-fluid ">
+                <a class="navbar-brand mx-auto text-white" th:href="@{/login}">Logout</a>
+                <button  class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              </div>
+          </nav>
+    </header>
+
+
+    <div class="container mt-5">
+        <table class="table table-dark table-striped" >
+          <p ></p>
+
+            <thead>
+                <th>NOMBRE</th>
+                <th>CANTIDAD</th>
+                <th>ID WALLET</th>
+                <th></th>
+             </thead>
+        </table>
+               <div class="row mb-3" *ngFor="let c of wallet.token_wallet">
+                    <h3 class="mb-3">{{ c.tokenName }}</h3>
+                    <p class="mb-3">{{ c.amount_tokens  }}</p>
+                    <p class="mb-3">{{ c.valor_total }} USD</p>
+               </div>   
+    <!--        
+           <td th:with="firstCuenta=${cuentas[0]}">
+               <a th:href="@{/addToken/} + ${firstCuenta.id_Wallet}">
+                   <button type="submit" class="btn btn-light">Agregar Token</button>
+               </a>
+           </td> -->
+
+      <div>
+       
+      </div>
+    </div>
+    <button
+      (click)="toAddTokens()"
+      > addToken<i class="fa-solid fa-eraser"></i></button>
+</body>
+</html>

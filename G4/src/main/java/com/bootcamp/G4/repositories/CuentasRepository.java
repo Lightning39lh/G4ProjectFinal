@@ -9,8 +9,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CuentasRepository extends JpaRepository<Cuentas, Long>{
+
+    @Query(value = "SELECT id FROM token_wallet t WHERE t.id_wallet = ?1 AND t.token_name = ?2", nativeQuery = true)
+    public Long findByIdWalletAndToken(@Param ("1") Long idWallet, String token_name);
     
-    @Query(value = "SELECT id FROM token_wallet WHERE id_wallet = ?1 AND token_id = ?2", nativeQuery = true)
-    public Long findByIdWalletAndToken(@Param ("1") Long idWallet, @Param ("2") Long idToken);
 
 }

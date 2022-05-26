@@ -36,12 +36,13 @@ public class MyUserService {
     */
 
 
-    public MyUser findByUsername(String username)
+    public Long findByUsername(String username)
     {
        MyUser u = uR.findByUsername(username).get();
-        if(u != null)
+       Long id = u.getId();
+        if(id != null)
         {
-            return u;
+            return id;
         }
         else
         return null;

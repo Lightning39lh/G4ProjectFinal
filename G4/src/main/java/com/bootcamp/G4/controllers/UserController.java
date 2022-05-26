@@ -18,23 +18,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/MyUsers")
+//@CrossOrigin("http://localhost:4200")
 public class UserController {
     
     @Autowired
     private MyUserService uS;
     
- 
-
     @GetMapping
     public ResponseEntity<ArrayList<MyUser>> getAllUsers(){
         return ResponseEntity.status(HttpStatus.OK).body(uS.getAllUsers());
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<MyUser> findByUserName(@PathVariable("username") String username){
-        MyUser user = uS.findByUsername(username);
-        if(user!=null){
-            return ResponseEntity.status(HttpStatus.OK).body(user);
+    public ResponseEntity<Long> findIdByUserName(@PathVariable("username") String username){
+        Long id = uS.findByUsername(username);
+        if(id!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(id);
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
