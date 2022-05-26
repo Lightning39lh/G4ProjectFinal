@@ -10,7 +10,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class LoginComponent implements OnInit {
   form:FormGroup;
-  constructor(private formBuilder:FormBuilder,private authenticationService:AuthenticationService, private ruta:Router){
+  constructor(private formBuilder:FormBuilder, private authenticationService:AuthenticationService, private ruta:Router){
     this.form=this.formBuilder.group(
       {
         username:["",[Validators.required]],
