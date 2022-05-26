@@ -9,12 +9,14 @@ import { LoginComponent } from './components/login/login.component';
 import { MyWalletComponent } from './components/my-wallet/my-wallet.component';
 import { InterceptorService } from './services/interceptor.service';
 import { WalletService } from './services/wallet.service';
+import { AddTokensComponent } from './components/add-tokens/add-tokens.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MyWalletComponent
+    MyWalletComponent,
+    AddTokensComponent
   ],
   imports: [
     BrowserModule,

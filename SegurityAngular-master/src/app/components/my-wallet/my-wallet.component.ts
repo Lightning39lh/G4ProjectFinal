@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cuenta } from 'src/app/model/Cuenta';
 import { Wallet } from 'src/app/model/Wallet';
 import { WalletService } from 'src/app/services/wallet.service';
@@ -11,7 +12,7 @@ import { WalletService } from 'src/app/services/wallet.service';
 export class MyWalletComponent implements OnInit {
   
   wallet: Wallet= new Wallet(0,[]);
-  constructor(public wS:WalletService) { }
+  constructor(public wS:WalletService,private ruta:Router) { }
 
   async ngOnInit(): Promise<void> {
     
@@ -23,5 +24,9 @@ export class MyWalletComponent implements OnInit {
       console.log("LO DE ARRIBA ES LA WALLET")
     })
   }
-
+  
+  toAddTokens()
+  {
+      this.ruta.navigate(['addToken']);
+  }
 }
