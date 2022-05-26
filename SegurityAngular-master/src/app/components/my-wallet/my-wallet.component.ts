@@ -13,9 +13,9 @@ export class MyWalletComponent implements OnInit {
   wallet: Wallet= new Wallet(0,[]);
   constructor(public wS:WalletService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     
-    this.wS.getWallet().subscribe(data => {
+    (await this.wS.getWallet()).subscribe(data => {
   
       console.log(JSON.stringify(data));
       this.wallet=data;
