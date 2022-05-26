@@ -50,6 +50,7 @@
                <div class="row mb-3" *ngFor="let c of wallet.token_wallet">
                     <h3 class="mb-3">{{ c.tokenName }}</h3>
                     <p class="mb-3">{{ c.amount_tokens  }}</p>
+                    <p class="mb-3">{{ c.valor_total }} USD</p>
                </div>   
     <!--        
            <td th:with="firstCuenta=${cuentas[0]}">
@@ -59,7 +60,7 @@
            </td> -->
 
       <div>
-        {{crypto.ask}}
+       
       </div>
     </div>
     <button
