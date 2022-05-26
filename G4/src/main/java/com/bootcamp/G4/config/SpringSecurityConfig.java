@@ -41,6 +41,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception{
         http
+            .cors()
+            .and()
             .csrf().disable()
             .authorizeRequests()
             .antMatchers("/login").permitAll()
@@ -52,7 +54,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-            
     }
 
     @Override
