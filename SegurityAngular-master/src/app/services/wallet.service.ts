@@ -13,7 +13,7 @@ export class WalletService {
   constructor(private http:HttpClient,private aS:AuthenticationService) { }
     
 
-  getWallet():Observable<any>
+  async getWallet():Promise<Observable<any>>
   {
     var currentUser=this.aS.AuthenticatedUser;
 
@@ -22,6 +22,8 @@ export class WalletService {
       console.log(data);
       console.log("LO DE ARRIBA ES EL ID")
     })
+     //para que me llegue a cargar el ID
+     await new Promise(f => setTimeout(f, 1));
     console.log(this.id);
     console.log("LO DE ARRIBA ES EL ID actualizado")
    return this.http.get<any>(this.url+"MyWallet/"+this.id);
