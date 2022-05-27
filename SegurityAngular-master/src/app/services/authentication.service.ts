@@ -27,6 +27,8 @@ export class AuthenticationService {
       }   
      ))
    }
+   
+
 get AuthenticatedUser()
 {
   console.log("SE ESTA USANDO EL AUTHENTICATEDUSER  "+JSON.stringify(this.currentUserSubject.value));
