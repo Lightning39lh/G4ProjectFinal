@@ -2,6 +2,7 @@ package com.bootcamp.G4.controllers;
 
 import com.bootcamp.G4.model.Exchange;
 import com.bootcamp.G4.model.Ticket;
+import com.bootcamp.G4.model.TokenReducido;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.services.WalletService;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/MyWallet")
 public class WalletController {
@@ -44,33 +47,33 @@ public class WalletController {
         return ResponseEntity.ok().body("Success.");
     }
 
-    @PostMapping("/AddToken/{idWallet}/{nameToken}")
-    public ResponseEntity<String> addToken(@PathVariable Long idWallet , @PathVariable String nameToken){
-        wS.addToken(idWallet, nameToken);
-        return ResponseEntity.ok().body("Success.");
+    @PostMapping("/AddToken/")
+    public ResponseEntity<TokenReducido> addToken(@RequestBody TokenReducido tokenReducido){
+        wS.addToken(tokenReducido);
+        return ResponseEntity.ok().body(tokenReducido);
     }
     
     @PostMapping("/BuyToken/")
-    public ResponseEntity<String> buyToken(@RequestBody Ticket ticket) throws Exception{
+    public ResponseEntity<Ticket> buyToken(@RequestBody Ticket ticket) throws Exception{
         wS.buyToken(ticket);
-        return ResponseEntity.ok().body("Success.");
+        return ResponseEntity.ok().body(ticket);
     }
     
     @PostMapping("/SellToken/")
-    public ResponseEntity<Object> sellToken(@RequestBody Ticket ticket) throws Exception {
+    public ResponseEntity<Ticket> sellToken(@RequestBody Ticket ticket) throws Exception {
         int e;
         e = wS.sellToken(ticket);
-        if(e==1)return ResponseEntity.status(200).body("Success.");
-        else if(e==2) return ResponseEntity.status(400).body("Fee error");
-        else return ResponseEntity.status(400).body("Not enough Token");
+        if(e==1)return ResponseEntity.status(200).body(ticket);
+        else if(e==2) return ResponseEntity.status(400).body(ticket);
+        else return ResponseEntity.status(400).body(ticket);
     }
     
     @PostMapping("/ExchangeToken/")
-    public ResponseEntity<Object> exchangeToken(@RequestBody Exchange exchange) throws Exception {
+    public ResponseEntity<Exchange> exchangeToken(@RequestBody Exchange exchange) throws Exception {
         int e;
         e = wS.exchangeToken(exchange);
-        if(e==1)return ResponseEntity.status(200).body("Success.");
-        else if(e==2) return ResponseEntity.status(400).body("Fee error");
-        else return ResponseEntity.status(400).body("Not enough Token");
+        if(e==1)return ResponseEntity.status(200).body(exchange);
+        else if(e==2) return ResponseEntity.status(400).body(exchange);
+        else return ResponseEntity.status(400).body(exchange);
     }
 }

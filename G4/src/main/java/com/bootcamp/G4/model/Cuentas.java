@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -32,5 +31,9 @@ public class Cuentas {
         this.amount_tokens+=cantidad;
     }
 
-    
+    public Cuentas(double amount_tokens, String tokenName, Long id_Wallet){
+        this.amount_tokens = amount_tokens;
+        this.tokenName = tokenName;
+        this.id_Wallet = id_Wallet;
+    }
 }

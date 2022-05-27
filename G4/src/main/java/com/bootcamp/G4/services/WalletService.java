@@ -4,6 +4,7 @@ import com.bootcamp.G4.model.Cuentas;
 import com.bootcamp.G4.model.Exchange;
 
 import com.bootcamp.G4.model.Ticket;
+import com.bootcamp.G4.model.TokenReducido;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.repositories.CuentasRepository;
 
@@ -48,11 +49,11 @@ public class WalletService {
         }
     }
 
-    public void addToken(Long idWallet, String nameToken){
+    public void addToken(TokenReducido tokenReducido){
         Cuentas cuenta = new Cuentas();
-        cuenta.setId_Wallet(idWallet);
+        cuenta.setId_Wallet(tokenReducido.getId_Wallet());
         cuenta.setAmount_tokens(0);
-        cuenta.setTokenName(nameToken);
+        cuenta.setTokenName(tokenReducido.getTokenName());
         System.out.println(cuenta);
         cR.save(cuenta);
     }
@@ -76,13 +77,17 @@ public class WalletService {
         ticketR.save(ticket);
         Cuentas cuenta;
         Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_wallet(),ticket.getName_token());
+        
         cuenta = cR.findById(cuentaId).get();
+        
         double resultado = cuenta.getAmount_tokens() - ticket.getAmount();
+        System.out.println(resultado);
         if (resultado > 0) {
             Cuentas cuentaUSD;   
-            Long cuentaUSDId= cR.findByIdWalletAndToken(ticket.getId_wallet(),"USD"); // la cantidad de usd 
+            Long cuentaUSDId= cR.findByIdWalletAndToken(ticket.getId_wallet(),"USDT"); // la cantidad de usd 
             cuentaUSD = cR.findById(cuentaUSDId).get();
             double resultado2 = cuentaUSD.getAmount_tokens() - 0.05;
+            System.out.println(resultado2);
             if (resultado2 >0){
                 cuenta.addToken(- ticket.getAmount());
                 cuentaUSD.addToken(- 0.05);
@@ -110,7 +115,7 @@ public class WalletService {
          if (resultado > 0)
          {
             Cuentas cuentaUSD;   
-            Long cuentaUSDId= cR.findByIdWalletAndToken(exchange.getId_wallet(),"USD"); // la cantidad de usd 
+            Long cuentaUSDId= cR.findByIdWalletAndToken(exchange.getId_wallet(),"USDT"); // la cantidad de usd 
             cuentaUSD = cR.findById(cuentaUSDId).get();
             double resultado2 = cuentaUSD.getAmount_tokens() - 0.05;
             if (resultado2 >0){ 
