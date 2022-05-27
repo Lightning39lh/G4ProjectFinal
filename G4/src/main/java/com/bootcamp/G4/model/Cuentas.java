@@ -31,5 +31,9 @@ public class Cuentas {
         this.amount_tokens+=cantidad;
     }
 
-    
+    public Cuentas(double amount_tokens, String tokenName, Long id_Wallet){
+        this.amount_tokens = amount_tokens;
+        this.tokenName = tokenName;
+        this.id_Wallet = id_Wallet;
+    }
 }
