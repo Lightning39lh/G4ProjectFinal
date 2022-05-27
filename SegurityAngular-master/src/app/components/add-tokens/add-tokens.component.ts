@@ -13,6 +13,7 @@ export class AddTokensComponent implements OnInit {
   token:string="ETH";
   ngOnInit(): void {
   }
+  
   addToken(token: string){
     this.aDS.addToken(token).subscribe(data => {
       console.log("DATA:" + JSON.stringify(data));
