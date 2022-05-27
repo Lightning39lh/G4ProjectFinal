@@ -44,6 +44,10 @@ export class MyWalletComponent implements OnInit {
       })
     })
   }
+
+  Logout(){
+    
+  }
  
   toAddTokens() {
     this.ruta.navigate(['addToken']);
