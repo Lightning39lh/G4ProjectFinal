@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Cuenta } from 'src/app/model/Cuenta';
 import { Wallet } from 'src/app/model/Wallet';
 import { Crypto } from 'src/app/model/Crypto';
 import { WalletService } from 'src/app/services/wallet.service';
 import { ApicryptoService } from 'src/app/services/apicrypto.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-my-wallet',
@@ -13,66 +16,40 @@ import { ApicryptoService } from 'src/app/services/apicrypto.service';
 })
 
 export class MyWalletComponent implements OnInit {
-  
-  name : string = "BTC"
-  precio: number=0;
-  wallet: Wallet= new Wallet(0,[]);
-  crypto:any;
-  constructor(private wS:WalletService, private aS:ApicryptoService,private ruta:Router) { }
 
-  async ngOnInit(): Promise<void> {
-    
+  crypto: any;
+  wallet: Wallet = new Wallet(0, []);
+  constructor(private wS: WalletService, private aS: ApicryptoService, private ruta: Router) { }
+
+  ngOnInit(): void{
+
+    this.getSessionWallet();
+    this.getTokens();
+  }
+
+  async getSessionWallet() {
     (await this.wS.getWallet()).subscribe(data => {
-  
       console.log(JSON.stringify(data));
-      this.wallet=data;
-      console.log(this.wallet);
-      console.log("LO DE ARRIBA ES LA WALLET");
+      this.wallet = data;
     })
+  }
 
-    // this.aS.getToken(this.name).subscribe(data => {
-    //   this.crypto = data;
-    //   this.cantidad= this.crypto.ask;
-    //   console.log(this.cantidad);
-    //   console.log("Objeto API", this.crypto);
-    // })
-    /*for(this.i=0; this.i < this.wallet.token_wallet.length;this.i++ ){
-      
-      this.aS.getToken(t).subscribe(data => {
-        this.crypto = data
-    }*/
-    await new Promise(f => setTimeout(f, 200));
+  async getTokens() {
+    await new Promise(f => setTimeout(f, 100));
     this.wallet.token_wallet.forEach(async (elemento, indice) => {
-      console.log(elemento, indice);
-      console.log(elemento.tokenName);
-      console.log("TOKEN NAME")
-      await new Promise(f => setTimeout(f, 200));
-      this.aS.getToken(elemento.tokenName).subscribe(data => {
+        this.aS.getToken(elemento.tokenName).subscribe(data => {
         this.crypto = data;
-        elemento.valor_total= this.crypto.ask;
-
-        console.log("precio del get token"+this.precio);
+        elemento.valor_total = this.crypto.ask;
+        elemento.valor_total *= elemento.amount_tokens;
       })
-      })
-      await new Promise(f => setTimeout(f, 1000));
-      this.wallet.token_wallet.forEach(async (elemento, indice) => {
-      console.log(elemento.amount_tokens);
-      console.log(elemento.valor_total);
-      elemento.valor_total;
-      elemento.valor_total= elemento.amount_tokens* elemento.valor_total ;
-      console.log(elemento.valor_total);  })
-
-}
+    })
+  }
  
-
-  toAddTokens()
-  {
-      this.ruta.navigate(['addToken']);
+  toAddTokens() {
+    this.ruta.navigate(['addToken']);
   }
-
-  search(){
-    this.aS.getToken(this.name);
-  }
+ 
 }
+
 
 
