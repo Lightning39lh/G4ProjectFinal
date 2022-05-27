@@ -9,6 +9,7 @@ export class AuthenticationService {
 
   url = "http://localhost:8080/login";
   currentUserSubject: BehaviorSubject<any>;
+
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('currentUser') || '{}'))
   }

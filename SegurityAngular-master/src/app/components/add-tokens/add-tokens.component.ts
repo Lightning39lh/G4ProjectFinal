@@ -22,4 +22,5 @@ export class AddTokensComponent implements OnInit {
   setToken(token: string){
     this.token=token;
   }
+  
 }

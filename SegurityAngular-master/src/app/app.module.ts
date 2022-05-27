@@ -10,13 +10,15 @@ import { MyWalletComponent } from './components/my-wallet/my-wallet.component';
 import { InterceptorService } from './services/interceptor.service';
 import { WalletService } from './services/wallet.service';
 import { AddTokensComponent } from './components/add-tokens/add-tokens.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     MyWalletComponent,
-    AddTokensComponent
+    AddTokensComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
