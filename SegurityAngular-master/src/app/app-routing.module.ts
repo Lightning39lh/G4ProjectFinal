@@ -10,7 +10,6 @@ const routes: Routes = [
   {path:'my-wallet',component:MyWalletComponent,canActivate:[GuardGuard]},
   {path:'addToken',component:AddTokensComponent,canActivate:[GuardGuard]},
   {path:'',redirectTo:'login',pathMatch:'full'}
-
 ];
 
 @NgModule({
