@@ -8,6 +8,7 @@ import { Crypto } from 'src/app/model/Crypto';
 import { WalletService } from 'src/app/services/wallet.service';
 import { ApicryptoService } from 'src/app/services/apicrypto.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Ticket } from 'src/app/model/Ticket';
 
 @Component({
   selector: 'app-my-wallet',
@@ -19,6 +20,7 @@ export class MyWalletComponent implements OnInit {
 
   crypto: any;
   wallet: Wallet = new Wallet(0, []);
+  ticket: Ticket = new Ticket (0,"",0);
   constructor(private wS: WalletService, private aS: ApicryptoService, private ruta: Router) { }
 
   ngOnInit(): void{
@@ -44,13 +46,19 @@ export class MyWalletComponent implements OnInit {
       })
     })
   }
-
-  Logout(){
-    
-  }
- 
   toAddTokens() {
     this.ruta.navigate(['addToken']);
+  }
+  buyToken(ticket: Ticket){
+    ticket.name_token= "USDT";
+    ticket.id_wallet=1;
+    this.wS.buyToken(ticket).subscribe(data => {console.log("se agrego bien")})
+  }
+  sellToken(ticket: Ticket){
+    ticket.name_token= "USDT";
+    ticket.id_wallet=1;
+    console.log(ticket);
+    this.wS.sellToken(ticket).subscribe(data => {console.log("quito bien")})
   }
  
 }
