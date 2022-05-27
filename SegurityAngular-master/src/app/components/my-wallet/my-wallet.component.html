@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+
  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,22 +20,23 @@
     </header>
 
 
-    <div class="container mt-5">
-        <table class="table table-dark table-striped" >
-          <p ></p>
 
-            <thead>
-                <th>NOMBRE</th>
-                <th>CANTIDAD</th>
-                <th>ID WALLET</th>
-                <th></th>
-             </thead>
-        </table>
-               <div class="row mb-3" *ngFor="let c of wallet.token_wallet">
-                    <h3 class="mb-3">{{ c.tokenName }}</h3>
-                    <p class="mb-3">{{ c.amount_tokens  }}</p>
-                    <p class="mb-3">{{ c.valor_total }} USD</p>
-               </div>   
+  <div class="container mt-5">
+    <table class="table table-dark table-striped">
+      <p></p>
+
+      <thead>
+        <th>NOMBRE</th>
+        <th>CANTIDAD</th>
+        <th>ID WALLET</th>
+        <th></th>
+      </thead>
+    </table>
+    <div class="row mb-3" *ngFor="let c of wallet.token_wallet">
+      <h3 class="mb-3">{{ c.tokenName }}</h3>
+      <p class="mb-3">{{ c.amount_tokens }}</p>
+      <p class="mb-3">{{ c.valor_total }} USD</p>
+    </div>
     <!--        
            <td th:with="firstCuenta=${cuentas[0]}">
                <a th:href="@{/addToken/} + ${firstCuenta.id_Wallet}">
@@ -43,13 +44,13 @@
                </a>
            </td> -->
 
-      <div>
-       
-      </div>
+    <div>
+
     </div>
     <button
       (click)="toAddTokens()"
       > addToken<i class="fa-solid fa-eraser"></i>
     </button>
-</body>
+
+
 </html>
