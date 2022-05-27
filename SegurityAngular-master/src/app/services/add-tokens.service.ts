@@ -11,9 +11,9 @@ export class AddTokensService {
   token1:TokenReducido = new TokenReducido("",0);
   constructor(private http: HttpClient) { }
 
-  public addToken(token: string){
+  public addToken(token: string,id:number){
     this.token1.tokenName=token;
-    this.token1.id_Wallet=1;
+    this.token1.id_Wallet=id;
     return this.http.post<TokenReducido>(this.URL,this.token1)
   }
 }

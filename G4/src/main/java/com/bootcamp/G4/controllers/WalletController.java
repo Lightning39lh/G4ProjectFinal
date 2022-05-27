@@ -54,18 +54,18 @@ public class WalletController {
     }
     
     @PostMapping("/BuyToken/")
-    public ResponseEntity<String> buyToken(@RequestBody Ticket ticket) throws Exception{
+    public ResponseEntity<Ticket> buyToken(@RequestBody Ticket ticket) throws Exception{
         wS.buyToken(ticket);
-        return ResponseEntity.ok().body("Success.");
+        return ResponseEntity.ok().body(ticket);
     }
     
     @PostMapping("/SellToken/")
-    public ResponseEntity<Object> sellToken(@RequestBody Ticket ticket) throws Exception {
+    public ResponseEntity<Ticket> sellToken(@RequestBody Ticket ticket) throws Exception {
         int e;
         e = wS.sellToken(ticket);
-        if(e==1)return ResponseEntity.status(200).body("Success.");
-        else if(e==2) return ResponseEntity.status(400).body("Fee error");
-        else return ResponseEntity.status(400).body("Not enough Token");
+        if(e==1)return ResponseEntity.status(200).body(ticket);
+        else if(e==2) return ResponseEntity.status(400).body(ticket);
+        else return ResponseEntity.status(400).body(ticket);
     }
     
     @PostMapping("/ExchangeToken/")

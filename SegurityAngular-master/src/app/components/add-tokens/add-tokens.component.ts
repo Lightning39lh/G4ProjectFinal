@@ -10,17 +10,18 @@ import { AddTokensService } from 'src/app/services/add-tokens.service';
 export class AddTokensComponent implements OnInit {
 
   constructor(private aDS:AddTokensService,private ruta:Router) { }
-  token:string="ETH";
+  tokenName:string="ETH";
   ngOnInit(): void {
   }
-  addToken(token: string){
-    this.aDS.addToken(token).subscribe(data => {
+  addToken(tokenName: string){
+//id wallet lo saco como antes
+    /*this.aDS.addToken(tokenName,id_Wallet).subscribe(data => {
       console.log("DATA:" + JSON.stringify(data));
-      this.ruta.navigate(['/my-wallet'])}) 
+      this.ruta.navigate(['/my-wallet'])}) */
   }
 
   setToken(token: string){
-    this.token=token;
+    this.tokenName=token;
   }
   
 }
