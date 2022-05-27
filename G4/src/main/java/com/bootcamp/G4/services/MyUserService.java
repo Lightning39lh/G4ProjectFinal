@@ -1,10 +1,19 @@
 package com.bootcamp.G4.services;
 
+import com.bootcamp.G4.model.Cuentas;
 import com.bootcamp.G4.model.MyUser;
+import com.bootcamp.G4.model.Role;
+import com.bootcamp.G4.model.TokenReducido;
+import com.bootcamp.G4.model.Wallet;
+import com.bootcamp.G4.repositories.CuentasRepository;
 import com.bootcamp.G4.repositories.MyUserRepository;
+import com.bootcamp.G4.repositories.RoleRepository;
+import com.bootcamp.G4.repositories.WalletRepository;
+
 import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,13 +25,57 @@ public class MyUserService {
     @Autowired
     WalletService wS;
 
+    @Autowired
+    RoleRepository rRepository;
+
+    @Autowired
+    CuentasRepository cRepository;
+
+    @Autowired
+    WalletService wService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     public ArrayList<MyUser> getAllUsers() {
         return (ArrayList<MyUser>) uR.findAll();
     }
 
     public MyUser saveUser(MyUser user) {
-        //wS.saveWallet(wallet);
-        return uR.save(user);
+       
+        //TRAIGO EL ROL
+        Optional<Role> rol = rRepository.findByName("ROLE_USER"); 
+        Role rols = rol.get();
+
+        //CREO LA WALLET
+        Wallet wallet = new Wallet();
+        wallet.setToken_wallet(null);
+        wService.saveWallet(wallet);
+
+        //TOKEN REDUCIDO
+        TokenReducido tReducido = new TokenReducido();
+        tReducido.setTokenName("USDT");
+        tReducido.setId_Wallet(wallet.getId()); //HAY QUE SETEARLO
+        System.out.println("ID WALLET");
+        System.out.println(wallet.getId());
+
+        //AGREGO EL TOKEN A LA WALLET
+        wService.addToken(tReducido);
+        
+
+        //AGREGO LA WALLET AL USER
+        user.setWallet(wallet);
+
+        //SETEO EL ROL
+        user.setRole(rols);
+
+        //HASH PASSWORD
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        
+        //RETORNO EL USR
+        uR.save(user);
+
+        return user;
     }
 
     public Optional<MyUser> getUserByID(Long id) {
