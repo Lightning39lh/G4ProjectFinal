@@ -1,12 +1,16 @@
 import { HttpClient, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Cuenta } from '../model/Cuenta';
+import { Ticket } from '../model/Ticket';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WalletService {
+  
+  
   url: string = "http://localhost:8080/"
 
   id: number = 0;
@@ -26,5 +30,11 @@ export class WalletService {
 
   getId(username: String): Observable<any> {
     return this.http.get<any>(this.url + "MyUsers/" + username);
+  }
+  buyToken(ticket: Ticket) {
+    return this.http.post<Ticket>(this.url+"MyWallet/BuyToken/",ticket);
+  }
+  sellToken(ticket: Ticket) {
+    return this.http.post<Ticket>(this.url+"MyWallet/SellToken/",ticket);
   }
 }
