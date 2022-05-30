@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'
 import { interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Cuenta } from 'src/app/model/Cuenta';

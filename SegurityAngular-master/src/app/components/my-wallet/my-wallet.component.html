@@ -77,6 +77,16 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>TokensAdded</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let c of wallet.token_wallet">
+        {{food.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
