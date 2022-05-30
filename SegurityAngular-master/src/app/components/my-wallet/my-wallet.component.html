@@ -38,31 +38,32 @@
       <h3 class="col-3 mb-3">{{ c.tokenName }}</h3>
       <p class="col-3 mb-3">{{ c.amount_tokens }}</p>
       <p class="col-3 mb-3">{{ c.valor_total }} USD</p>
-      <div class="col-1 col-sm-2 col-lg-1">
-        <button 
-          class="btn gap-1"
-          data-bs-toggle="modal"
-          data-bs-target="#buyToken"
-          ><i class="fa-solid fa-pen"></i
-        >Buy</button>
-      </div>
-      <div class="col-1 col-sm-2 col-lg-1">
-        <button
-          class="btn gap-1"
-          data-bs-toggle="modal"
-          data-bs-target="#sellToken"
-          ><i class="fa-solid fa-pen"></i
-        >Sell</button>
-      </div>
-      <div class="col-1 col-sm-2 col-lg-1">
-        <button
-          class="btn gap-1"
-          data-bs-toggle="modal"
-          data-bs-target="#exchangeToken"
-          ><i class="fa-solid fa-pen"></i
-        >Exchange</button>
-      </div>
+      
 
+    </div>
+    <div class="row mb-3 col-1 col-sm-2 col-lg-1">
+      <button 
+        class="btn gap-1"
+        data-bs-toggle="modal"
+        data-bs-target="#buyToken"
+        ><i class="fa-solid fa-pen"></i
+      >Buy</button>
+    </div>
+    <div class="row mb-3 col-1 col-sm-2 col-lg-1">
+      <button
+        class="btn gap-1"
+        data-bs-toggle="modal"
+        data-bs-target="#sellToken"
+        ><i class="fa-solid fa-pen"></i
+      >Sell</button>
+    </div>
+    <div class="row mb-3 col-1 col-sm-2 col-lg-1">
+      <button
+        class="btn gap-1"
+        data-bs-toggle="modal"
+        data-bs-target="#exchangeToken"
+        ><i class="fa-solid fa-pen"></i
+      >Exchange</button>
     </div>
     <button (click)="toAddTokens()"> addToken<i class="fa-solid fa-eraser"></i>
     </button>
@@ -89,18 +90,23 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="buyToken(ticket) ">
-          <div class="form-group" []>
+        <form (ngSubmit)="buyToken(ticket)" >
+          <div class="form-group">
             <label>amount to buy:</label>
             <input
               type="text"
               class="form-control"
               placeholder="amount to buy"
               [(ngModel)]="ticket.amount"
-              ticket.tokenName="c.tokenName"
               name="empresa"
             />
-
+            <div>
+              <select [(ngModel)]="ticket.name_token" name="tokenName">
+                <option *ngFor="let c of wallet.token_wallet" [value]="c.tokenName">
+                  {{c.tokenName}}
+                </option>
+              </select>
+            </div>
           </div>
             <button
               type="button"
@@ -115,7 +121,7 @@
               class="btn btn-primary"
               data-bs-dismiss="modal"
             >
-              buy
+              Buy
             </button>
         </form>
       </div>
@@ -153,7 +159,13 @@
 
               name="empresa"
             />
-            
+            <div>
+              <select [(ngModel)]="ticket.name_token" name="tokenName">
+                <option *ngFor="let c of wallet.token_wallet" [value]="c.tokenName">
+                  {{c.tokenName}}
+                </option>
+              </select>
+            </div>
           </div>
             <button
               type="button"
@@ -196,16 +208,29 @@
       </div>
       <div class="modal-body">
         <form (ngSubmit)="exchangeToken(exchange)">
-
+          <div>
+            <select [(ngModel)]="exchange.tokenName1" name="tokenName">
+              <option *ngFor="let c of wallet.token_wallet" [value]="c.tokenName">
+                {{c.tokenName}}
+              </option>
+            </select>
+          </div>
           <div class="form-group">
             <label>amount to exchange:</label>
             <input
               type="text"
               class="form-control"
-              placeholder="amount to buy"
+              placeholder="amount to exchange"
               [(ngModel)]="exchange.amount"
               name="empresa"
             />
+          </div>
+          <div>
+            <select [(ngModel)]="exchange.tokenName2" name="tokenName">
+              <option *ngFor="let c of wallet.token_wallet" [value]="c.tokenName">
+                {{c.tokenName}}
+              </option>
+            </select>
           </div>
             <button
               type="button"

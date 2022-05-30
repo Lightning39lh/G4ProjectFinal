@@ -10,7 +10,6 @@ import { AuthenticationService } from './authentication.service';
   providedIn: 'root'
 })
 export class WalletService {
- 
   
   
   url: string = "http://localhost:8080/"
@@ -42,4 +41,5 @@ export class WalletService {
   exchangeToken(exchange: Exchange) {
     return this.http.post<Ticket>(this.url+"MyWallet/ExchangeToken/",exchange);
   }
+  
 }

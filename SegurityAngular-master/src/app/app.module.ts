@@ -25,7 +25,8 @@ import { HeaderComponent } from './components/header/header.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+
   ],
   providers: [WalletService,
   { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi:true}

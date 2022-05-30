@@ -19,4 +19,4 @@ export class Exchange
             this.tokenName1=tokenName1;
             this.tokenName2=tokenName2;
         }
-}
+} 
