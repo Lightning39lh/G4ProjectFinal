@@ -38,31 +38,32 @@
       <h3 class="col-3 mb-3">{{ c.tokenName }}</h3>
       <p class="col-3 mb-3">{{ c.amount_tokens }}</p>
       <p class="col-3 mb-3">{{ c.valor_total }} USD</p>
-      <div class="col-1 col-sm-2 col-lg-1">
-        <button 
-          class="btn gap-1"
-          data-bs-toggle="modal"
-          data-bs-target="#buyToken"
-          ><i class="fa-solid fa-pen"></i
-        >Buy</button>
-      </div>
-      <div class="col-1 col-sm-2 col-lg-1">
-        <button
-          class="btn gap-1"
-          data-bs-toggle="modal"
-          data-bs-target="#sellToken"
-          ><i class="fa-solid fa-pen"></i
-        >Sell</button>
-      </div>
-      <div class="col-1 col-sm-2 col-lg-1">
-        <button
-          class="btn gap-1"
-          data-bs-toggle="modal"
-          data-bs-target="#ExchangeToken"
-          ><i class="fa-solid fa-pen"></i
-        >Exchange</button>
-      </div>
+      
 
+    </div>
+    <div class="row mb-3 col-1 col-sm-2 col-lg-1">
+      <button 
+        class="btn gap-1"
+        data-bs-toggle="modal"
+        data-bs-target="#buyToken"
+        ><i class="fa-solid fa-pen"></i
+      >Buy</button>
+    </div>
+    <div class="row mb-3 col-1 col-sm-2 col-lg-1">
+      <button
+        class="btn gap-1"
+        data-bs-toggle="modal"
+        data-bs-target="#sellToken"
+        ><i class="fa-solid fa-pen"></i
+      >Sell</button>
+    </div>
+    <div class="row mb-3 col-1 col-sm-2 col-lg-1">
+      <button
+        class="btn gap-1"
+        data-bs-toggle="modal"
+        data-bs-target="#ExchangeToken"
+        ><i class="fa-solid fa-pen"></i
+      >Exchange</button>
     </div>
     <button (click)="toAddTokens()"> addToken<i class="fa-solid fa-eraser"></i>
     </button>
@@ -99,16 +100,13 @@
               [(ngModel)]="ticket.amount"
               name="empresa"
             />
-            
-            <!-- <mat-form-field appearance="fill">
-              <mat-label>mats</mat-label>
-              <mat-select [(ngModel)]="ticket.name_token" name="name_token">
-                <mat-option *ngFor= "let c of wallet.token_wallet" ="">
+            <div>
+              <select [(ngModel)]="ticket.name_token" name="tokenName">
+                <option *ngFor="let c of wallet.token_wallet" [value]="c.tokenName">
                   {{c.tokenName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field> 
-            <p> Selected token: {{ticket.name_token}} </p>  -->
+                </option>
+              </select>
+            </div>
           </div>
             <button
               type="button"
@@ -123,7 +121,7 @@
               class="btn btn-primary"
               data-bs-dismiss="modal"
             >
-              buy
+              Buy
             </button>
         </form>
       </div>
@@ -161,7 +159,13 @@
 
               name="empresa"
             />
-            
+            <div>
+              <select [(ngModel)]="ticket.name_token" name="tokenName">
+                <option *ngFor="let c of wallet.token_wallet" [value]="c.tokenName">
+                  {{c.tokenName}}
+                </option>
+              </select>
+            </div>
           </div>
             <button
               type="button"
@@ -176,7 +180,7 @@
               class="btn btn-primary"
               data-bs-dismiss="modal"
             >
-              buy
+              Sell
             </button>
         </form>
       </div>
