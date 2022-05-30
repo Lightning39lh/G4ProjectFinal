@@ -50,12 +50,14 @@ public class WalletService {
     }
 
     public void addToken(TokenReducido tokenReducido){
+        if (cR.findByIdWalletAndToken(tokenReducido.getId_Wallet(),tokenReducido.getTokenName())== null) {
         Cuentas cuenta = new Cuentas();
         cuenta.setId_Wallet(tokenReducido.getId_Wallet());
         cuenta.setAmount_tokens(0);
         cuenta.setTokenName(tokenReducido.getTokenName());
-        System.out.println(cuenta);
+        System.out.println(cuenta);      
         cR.save(cuenta);
+        }
     }
 
     public void buyToken(Ticket ticket) throws Exception
