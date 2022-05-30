@@ -7,5 +7,4 @@ export class Wallet{
         this.id=id;
         this.token_wallet=cuentas;
     }
-    
 }
