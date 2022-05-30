@@ -2,7 +2,6 @@ import { HttpClient, HttpEvent, HttpHandler, HttpRequest } from '@angular/common
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cuenta } from '../model/Cuenta';
-import { Exchange } from '../model/Exchange';
 import { Ticket } from '../model/Ticket';
 import { AuthenticationService } from './authentication.service';
 
@@ -10,7 +9,6 @@ import { AuthenticationService } from './authentication.service';
   providedIn: 'root'
 })
 export class WalletService {
- 
   
   
   url: string = "http://localhost:8080/"
@@ -38,8 +36,5 @@ export class WalletService {
   }
   sellToken(ticket: Ticket) {
     return this.http.post<Ticket>(this.url+"MyWallet/SellToken/",ticket);
-  }
-  exchangeToken(exchange: Exchange) {
-    return this.http.post<Ticket>(this.url+"MyWallet/ExchangeToken/",exchange);
   }
 }
