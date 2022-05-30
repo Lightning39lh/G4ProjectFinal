@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -45,8 +46,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/login").permitAll()
-            .antMatchers("/MyUsers/save").permitAll()
+            .antMatchers("/login",
+                                        "/MyUsers/save",
+                                        "/v2/api-docs/**",
+                                        "/swagger-ui/**",
+                                        "/swagger-resources/**",
+                                        "/configuration/**" 
+            ).permitAll()            
             .anyRequest()
             .authenticated()
             .and()
@@ -56,6 +62,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }
+
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
