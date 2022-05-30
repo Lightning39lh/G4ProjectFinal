@@ -66,6 +66,7 @@ public class WalletController {
         if(e==1)return ResponseEntity.status(200).body(ticket);
         else if(e==2) return ResponseEntity.status(400).body(ticket);
         else return ResponseEntity.status(400).body(ticket);
+        
     }
     
     @PostMapping("/ExchangeToken/")
