@@ -58,7 +58,7 @@
         <button
           class="btn gap-1"
           data-bs-toggle="modal"
-          data-bs-target="#ExchangeToken"
+          data-bs-target="#exchangeToken"
           ><i class="fa-solid fa-pen"></i
         >Exchange</button>
       </div>
@@ -90,7 +90,7 @@
       </div>
       <div class="modal-body">
         <form (ngSubmit)="buyToken(ticket) ">
-          <div class="form-group">
+          <div class="form-group" []>
             <label>amount to buy:</label>
             <input
               type="text"
@@ -168,7 +168,7 @@
               class="btn btn-primary"
               data-bs-dismiss="modal"
             >
-              buy
+              Sell
             </button>
         </form>
       </div>
@@ -178,7 +178,7 @@
 <!-- modal cambiar tokens -->
 <div
   class="modal fade"
-  id="buyToken"
+  id="exchangeToken"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
@@ -195,24 +195,15 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="buyToken(ticket)">
+        <form (ngSubmit)="exchangeToken(exchange)">
+
           <div class="form-group">
-            <label>amount to buy:</label>
+            <label>amount to exchange:</label>
             <input
               type="text"
               class="form-control"
               placeholder="amount to buy"
-              [(ngModel)]="ticket.amount"
-              name="empresa"
-            />
-          </div>
-          <div class="form-group">
-            <label>amount tbuyo buy:</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="amount to buy"
-              [(ngModel)]="ticket.amount"
+              [(ngModel)]="exchange.amount"
               name="empresa"
             />
           </div>
@@ -229,7 +220,7 @@
               class="btn btn-primary"
               data-bs-dismiss="modal"
             >
-              buy
+              Exchange
             </button>
         </form>
       </div>

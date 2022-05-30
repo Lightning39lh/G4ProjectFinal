@@ -69,11 +69,11 @@ public class WalletController {
     }
     
     @PostMapping("/ExchangeToken/")
-    public ResponseEntity<Object> exchangeToken(@RequestBody Exchange exchange) throws Exception {
+    public ResponseEntity<Exchange> exchangeToken(@RequestBody Exchange exchange) throws Exception {
         int e;
         e = wS.exchangeToken(exchange);
-        if(e==1)return ResponseEntity.status(200).body("Success.");
-        else if(e==2) return ResponseEntity.status(400).body("Fee error");
-        else return ResponseEntity.status(400).body("Not enough Token");
+        if(e==1)return ResponseEntity.status(200).body(exchange);
+        else if(e==2) return ResponseEntity.status(400).body(exchange);
+        else return ResponseEntity.status(400).body(exchange);
     }
 }
