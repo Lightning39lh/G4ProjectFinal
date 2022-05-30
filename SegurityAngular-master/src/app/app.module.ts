@@ -11,8 +11,6 @@ import { InterceptorService } from './services/interceptor.service';
 import { WalletService } from './services/wallet.service';
 import { AddTokensComponent } from './components/add-tokens/add-tokens.component';
 import { HeaderComponent } from './components/header/header.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -28,8 +26,7 @@ import {MatSelectModule} from '@angular/material/select';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MatFormFieldModule,
-    MatSelectModule
+
   ],
   providers: [WalletService,
   { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi:true}
