@@ -17,7 +17,7 @@ import { Ticket } from 'src/app/model/Ticket';
 })
 
 export class MyWalletComponent implements OnInit {
-
+  tokenName:string ="";
   crypto: any;
   wallet: Wallet = new Wallet(0, []);
   ticket: Ticket = new Ticket (0,"",0);
@@ -51,16 +51,15 @@ export class MyWalletComponent implements OnInit {
   }
   buyToken(ticket: Ticket){
     ticket.name_token= "USDT";
-    ticket.id_wallet=1;
+    ticket.id_wallet=this.wallet.id;
     this.wS.buyToken(ticket).subscribe(data => {console.log("se agrego bien")})
   }
   sellToken(ticket: Ticket){
     ticket.name_token= "USDT";
-    ticket.id_wallet=1;
+    ticket.id_wallet=this.wallet.id;
     console.log(ticket);
     this.wS.sellToken(ticket).subscribe(data => {console.log("quito bien")})
   }
- 
 }
 
 
