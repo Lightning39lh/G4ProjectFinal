@@ -39,7 +39,4 @@ export class WalletService {
   sellToken(ticket: Ticket) {
     return this.http.post<Ticket>(this.url+"MyWallet/SellToken/",ticket);
   }
-  exchangeToken(exchange: Exchange) {
-    return this.http.post<Ticket>(this.url+"MyWallet/ExchangeToken/",exchange);
-  }
 }
