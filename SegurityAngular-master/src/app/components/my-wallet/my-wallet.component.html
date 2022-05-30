@@ -89,7 +89,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="buyToken(ticket) ">
+        <form (ngSubmit)="buyToken(ticket)" >
           <div class="form-group">
             <label>amount to buy:</label>
             <input
@@ -97,10 +97,18 @@
               class="form-control"
               placeholder="amount to buy"
               [(ngModel)]="ticket.amount"
-              ticket.tokenName="c.tokenName"
               name="empresa"
             />
-
+            
+            <!-- <mat-form-field appearance="fill">
+              <mat-label>mats</mat-label>
+              <mat-select [(ngModel)]="ticket.name_token" name="name_token">
+                <mat-option *ngFor= "let c of wallet.token_wallet" ="">
+                  {{c.tokenName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> 
+            <p> Selected token: {{ticket.name_token}} </p>  -->
           </div>
             <button
               type="button"
