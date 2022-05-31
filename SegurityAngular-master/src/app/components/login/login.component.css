@@ -24,3 +24,5 @@ body{
 .form-text{
     color: var(--light);
 }
+.flex-box-2 { 
+    display:flex; justify-content: flex-end; outline: 2px;} 

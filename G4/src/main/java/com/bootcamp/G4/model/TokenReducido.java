@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 public class TokenReducido { 
     private String tokenName;   
     private Long id_Wallet;
-    
 }
