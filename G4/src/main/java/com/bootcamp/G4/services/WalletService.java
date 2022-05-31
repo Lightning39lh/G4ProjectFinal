@@ -195,4 +195,8 @@ public class WalletService {
              //NO TIENE ESE TOKEN SUFICIENTE
         }
     }
+
+    public ArrayList<Ticket> getTicketsById(Long id) {
+        return ticketR.getTicketsById(id);
+    }
 }
