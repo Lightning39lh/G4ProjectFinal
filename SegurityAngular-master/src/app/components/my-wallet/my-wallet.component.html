@@ -49,19 +49,25 @@
 
 
     </div>
-    <div class="row mb-3">
-      <div class="col-1 mb-1"></div>
-      <h3 class="col-4 mb-4">NAME</h3>
-      <h3 class="col-3 mb-3">AMOUNT</h3>
-      <h3 class="col-3 mb-3">AMOUNT IN USD</h3>
-    </div>
-    <div class="row mb-3 " *ngFor="let c of wallet.token_wallet">
-      <div class="col-1 mb-1"></div>
-      <h3 class="col-4 mb-3">{{ c.tokenName }}</h3>
-      <p class="col-3 mb-3">{{ c.amount_tokens }}</p>
-      <p class="col-3 mb-3">{{ c.valor_total }} USD</p>
 
-    </div>
+    <table class="table ">
+      <thead>
+        <tr>
+
+          <th scope="col">NAME</th>
+          <th scope="col">AMOUNT</th>
+          <th scope="col">AMOUNT IN USD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of wallet.token_wallet">
+          <td>{{ c.tokenName }}</td>
+          <td>{{ c.amount_tokens }}</td>
+          <td>{{ c.valor_total }} USD</td>
+        </tr>
+      </tbody>
+    </table>
+   
 
   </div>
 </body>
@@ -215,7 +221,7 @@
           </button>
 
           <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
-            Exchange
+            Transfer
           </button>
         </form>
       </div>
