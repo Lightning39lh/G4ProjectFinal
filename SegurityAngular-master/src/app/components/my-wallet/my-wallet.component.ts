@@ -62,16 +62,17 @@ export class MyWalletComponent implements OnInit {
       })
     })
   }
-  toAddTokens() {
-    this.ruta.navigate(['addToken']);
-  }
+
   buyToken(ticket: Ticket){
     ticket.id_wallet=this.wallet.id;
-    this.wS.buyToken(ticket).subscribe(data => {console.log("se agrego bien")})
+    this.wS.buyToken(ticket).subscribe(data => {console.log("se agrego bien")
+    location.reload();
+  })
   }
   sellToken(ticket: Ticket){
     ticket.id_wallet=this.wallet.id;
-    this.wS.sellToken(ticket).subscribe(data => {console.log("quito bien")})
+    this.wS.sellToken(ticket).subscribe(data => {console.log("quito bien")
+    location.reload();})
   }
   async exchangeToken(exchange: Exchange){
     exchange.id_wallet=this.wallet.id;
@@ -85,14 +86,17 @@ export class MyWalletComponent implements OnInit {
     });
     await new Promise(f => setTimeout(f, 500));
     console.log(exchange);
-    this.wS.exchangeToken(exchange).subscribe(data => {console.log("cambio bien")});
+    this.wS.exchangeToken(exchange).subscribe(data => {
+    console.log("cambio bien")
+    location.reload();});
   }
 
   addToken(tokenName:string){
     console.log(tokenName);
     this.tokenReducido.id_Wallet=this.wallet.id;
     this.tokenReducido.tokenName=tokenName;
-    this.aTS.addToken(this.tokenReducido).subscribe(data => {console.log("se agrego bien")});
+    this.aTS.addToken(this.tokenReducido).subscribe(data => {console.log("se agrego bien")
+    location.reload();});
   }
 
 }

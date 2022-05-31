@@ -68,9 +68,7 @@ public class WalletService {
         Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_wallet(),ticket.getName_token());          
         cuenta = cR.findById(cuentaId).get();
         cuenta.addToken(ticket.getAmount());
-        
         cR.save(cuenta);
-
     }
     
     public int sellToken (Ticket ticket) throws Exception
