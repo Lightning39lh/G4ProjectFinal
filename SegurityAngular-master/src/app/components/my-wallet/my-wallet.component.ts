@@ -13,6 +13,7 @@ import { Exchange } from 'src/app/model/Exchange';
 import { Tokens } from 'src/app/model/Tokens';
 import { AddTokensService } from 'src/app/services/add-tokens.service';
 import { TokenReducido } from 'src/app/model/TokenReducido';
+import { TransferToken } from 'src/app/model/TransferToken';
 
 @Component({
   selector: 'app-my-wallet',
@@ -27,6 +28,8 @@ export class MyWalletComponent implements OnInit {
   exchange: Exchange = new Exchange(0,0,"",0,0,"");
   tokens: string [] = [];
   token1:string ="";
+  transferToken1:TransferToken = new TransferToken(0,0,"",0);
+
   tokenReducido:TokenReducido = new TokenReducido("",0);
 
   constructor(private wS: WalletService, private aS: ApicryptoService, private aTS: AddTokensService, private ruta: Router) { }
@@ -98,6 +101,14 @@ export class MyWalletComponent implements OnInit {
     this.aTS.addToken(this.tokenReducido).subscribe(data => {console.log("se agrego bien")
     location.reload();});
   }
+  transferToken(){
+    this.transferToken1.transferWalletId=this.wallet.id;
+    
+    this.wS.transferToken(this.transferToken1).subscribe(data => {console.log("se entrego bien")
+    location.reload();});
+    
+  }
+
 
 }
 
