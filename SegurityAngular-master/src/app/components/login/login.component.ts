@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/model/User';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { SingInService } from 'src/app/services/sing-in.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,14 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class LoginComponent implements OnInit {
   form:FormGroup;
-  constructor(private formBuilder:FormBuilder, private authenticationService:AuthenticationService, private ruta:Router){
+  user:User = new User("","");
+  constructor(private formBuilder:FormBuilder, private sS:SingInService, private authenticationService:AuthenticationService, private ruta:Router){
+    this.form=this.formBuilder.group(
+      {
+        username:["",[Validators.required]],
+        password:["",[Validators.required, Validators.minLength(3)]]
+      }
+    ) 
     this.form=this.formBuilder.group(
       {
         username:["",[Validators.required]],
@@ -39,5 +48,8 @@ export class LoginComponent implements OnInit {
       console.log("DATA:" + JSON.stringify(data));
       this.ruta.navigate(['/my-wallet']);
     })
+  }
+  addUser(user:User){
+    this.sS.addUser(user).subscribe(data => {console.log("se agrego bien")});
   }
 }

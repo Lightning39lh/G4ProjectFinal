@@ -10,6 +10,9 @@ import { ApicryptoService } from 'src/app/services/apicrypto.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Ticket } from 'src/app/model/Ticket';
 import { Exchange } from 'src/app/model/Exchange';
+import { Tokens } from 'src/app/model/Tokens';
+import { AddTokensService } from 'src/app/services/add-tokens.service';
+import { TokenReducido } from 'src/app/model/TokenReducido';
 
 @Component({
   selector: 'app-my-wallet',
@@ -22,12 +25,24 @@ export class MyWalletComponent implements OnInit {
   wallet: Wallet = new Wallet(0, []);
   ticket: Ticket = new Ticket (0,"",0);
   exchange: Exchange = new Exchange(0,0,"",0,0,"");
-  constructor(private wS: WalletService, private aS: ApicryptoService, private ruta: Router) { }
+  tokens: string [] = [];
+  token1:string ="";
+  tokenReducido:TokenReducido = new TokenReducido("",0);
+
+  constructor(private wS: WalletService, private aS: ApicryptoService, private aTS: AddTokensService, private ruta: Router) { }
 
   ngOnInit(): void{
 
     this.getSessionWallet();
     this.getTokens();
+
+    this.tokens.push("BTC");
+    this.tokens.push("ETH");
+    this.tokens.push("DAI");
+    this.tokens.push("XRP");
+    this.tokens.push("BCH");
+    this.tokens.push("LTC");
+    console.log(this.tokens);
   }
 
   async getSessionWallet() {
@@ -47,16 +62,17 @@ export class MyWalletComponent implements OnInit {
       })
     })
   }
-  toAddTokens() {
-    this.ruta.navigate(['addToken']);
-  }
+
   buyToken(ticket: Ticket){
     ticket.id_wallet=this.wallet.id;
-    this.wS.buyToken(ticket).subscribe(data => {console.log("se agrego bien")})
+    this.wS.buyToken(ticket).subscribe(data => {console.log("se agrego bien")
+    location.reload();
+  })
   }
   sellToken(ticket: Ticket){
     ticket.id_wallet=this.wallet.id;
-    this.wS.sellToken(ticket).subscribe(data => {console.log("quito bien")})
+    this.wS.sellToken(ticket).subscribe(data => {console.log("quito bien")
+    location.reload();})
   }
   async exchangeToken(exchange: Exchange){
     exchange.id_wallet=this.wallet.id;
@@ -70,7 +86,17 @@ export class MyWalletComponent implements OnInit {
     });
     await new Promise(f => setTimeout(f, 500));
     console.log(exchange);
-    this.wS.exchangeToken(exchange).subscribe(data => {console.log("cambio bien")});
+    this.wS.exchangeToken(exchange).subscribe(data => {
+    console.log("cambio bien")
+    location.reload();});
+  }
+
+  addToken(tokenName:string){
+    console.log(tokenName);
+    this.tokenReducido.id_Wallet=this.wallet.id;
+    this.tokenReducido.tokenName=tokenName;
+    this.aTS.addToken(this.tokenReducido).subscribe(data => {console.log("se agrego bien")
+    location.reload();});
   }
 
 }
