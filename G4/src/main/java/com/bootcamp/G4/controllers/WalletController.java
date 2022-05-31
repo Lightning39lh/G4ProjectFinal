@@ -3,10 +3,12 @@ package com.bootcamp.G4.controllers;
 import com.bootcamp.G4.model.Exchange;
 import com.bootcamp.G4.model.Ticket;
 import com.bootcamp.G4.model.TokenReducido;
+import com.bootcamp.G4.model.TransferToken;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.services.WalletService;
 import java.util.ArrayList;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,5 +78,14 @@ public class WalletController {
         if(e==1)return ResponseEntity.status(200).body(exchange);
         else if(e==2) return ResponseEntity.status(400).body(exchange);
         else return ResponseEntity.status(400).body(exchange);
+    }
+
+    @PostMapping("/transfer")
+    public ResponseEntity<TransferToken> transferToken(@RequestBody TransferToken token) throws Exception{
+        wS.transferCrypto(token);
+        if(token != null){
+            return ResponseEntity.ok().body(token);
+        }
+        return ResponseEntity.badRequest().body(token);
     }
 }
