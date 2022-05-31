@@ -24,7 +24,11 @@
 
 
   <div class="container mt-5">
-    <table class="table table-dark table-striped">
+    <div class="row mb-3" >
+    <h3 class="col-3 mb-3">NAME</h3>
+    <h3 class="col-3 mb-3">AMOUNT</h3>
+    <h3 class="col-3 mb-3">AMOUNT IN USD</h3>
+    <!-- <table class="table table-dark table-striped">
       <p></p>
 
       <thead>
@@ -33,7 +37,8 @@
         <th>ID WALLET</th>
         <th></th>
       </thead>
-    </table>
+    </table> -->
+  </div>
     <div class="row mb-3" *ngFor="let c of wallet.token_wallet">
       <h3 class="col-3 mb-3">{{ c.tokenName }}</h3>
       <p class="col-3 mb-3">{{ c.amount_tokens }}</p>
@@ -41,15 +46,16 @@
       
 
     </div>
-    <div class="row mb-3 col-1 col-sm-2 col-lg-1">
+    <div class="row mb-3" >
+    <div class="row mb-3 col-2 col-sm-2 col-lg-2">
       <button 
-        class="btn gap-1"
+        class="btn gap-1 btn btn-outline-primary"
         data-bs-toggle="modal"
         data-bs-target="#buyToken"
-        ><i class="fa-solid fa-pen"></i
+        ><i class="fa-solid fa-pen "></i
       >Buy</button>
     </div>
-    <div class="row mb-3 col-1 col-sm-2 col-lg-1">
+    <div class="row mb-3 col-2 col-sm-2 col-lg-2">
       <button
         class="btn gap-1"
         data-bs-toggle="modal"
@@ -57,7 +63,7 @@
         ><i class="fa-solid fa-pen"></i
       >Sell</button>
     </div>
-    <div class="row mb-3 col-1 col-sm-2 col-lg-1">
+    <div class="row mb-3 col-2 col-sm-2 col-lg-2">
       <button
         class="btn gap-1"
         data-bs-toggle="modal"
@@ -65,7 +71,7 @@
         ><i class="fa-solid fa-pen"></i
       >Exchange</button>
     </div>
-    <div class="row mb-3 col-1 col-sm-2 col-lg-1">
+    <div class="row mb-3 col-2 col-sm-2 col-lg-2">
       <button
         class="btn gap-1"
         data-bs-toggle="modal"
@@ -73,7 +79,7 @@
         ><i class="fa-solid fa-pen"></i
       >Add Token</button>
     </div>
-
+   </div>
   </div>
 </body>
 <!-- modal comprar tokens -->
