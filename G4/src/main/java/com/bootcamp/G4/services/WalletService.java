@@ -5,12 +5,16 @@ import com.bootcamp.G4.model.Exchange;
 
 import com.bootcamp.G4.model.Ticket;
 import com.bootcamp.G4.model.TokenReducido;
+import com.bootcamp.G4.model.TransferToken;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.repositories.CuentasRepository;
 
 import com.bootcamp.G4.repositories.TicketRepository;
 import com.bootcamp.G4.repositories.WalletRepository;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +53,13 @@ public class WalletService {
         }
     }
 
+    public Optional<Cuentas> findCuentaById(Long id){
+        if(cR.existsById(id)){
+            return cR.findById(id);
+        }
+        return null;
+    }
+
     public void addToken(TokenReducido tokenReducido){
         if (cR.findByIdWalletAndToken(tokenReducido.getId_Wallet(),tokenReducido.getTokenName())== null) {
         Cuentas cuenta = new Cuentas();
@@ -68,9 +79,7 @@ public class WalletService {
         Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_wallet(),ticket.getName_token());          
         cuenta = cR.findById(cuentaId).get();
         cuenta.addToken(ticket.getAmount());
-        
         cR.save(cuenta);
-
     }
     
     public int sellToken (Ticket ticket) throws Exception
@@ -107,6 +116,49 @@ public class WalletService {
             return 3; //NO TIENE ESE TOKEN SUFICIENTE
         }
     }  
+
+    public void transferCrypto(TransferToken token) throws Exception{
+
+        //Me traigo la cuenta
+
+        Cuentas cuentaTransfer = new Cuentas();
+        Cuentas cuentaReceptor = new Cuentas();
+
+        Long cuentaTransferId = cR.findByIdWalletAndToken(token.getTransferWalletId(), token.getTokenName());
+        cuentaTransfer = cR.findById(cuentaTransferId).get();
+
+
+
+        //Chequeo que tenga el dinero suficiente
+        double resultado = cuentaTransfer.getAmount_tokens() - token.getAmount();
+
+        if(resultado > 0){
+            //agregar dinero y token en receptor
+            if(cR.findByIdWalletAndToken(token.getReceptorWalletId(), token.getTokenName()) != null){
+                Long cuentaReceptorId = cR.findByIdWalletAndToken(token.getReceptorWalletId(), token.getTokenName());
+                cuentaReceptor = cR.findById(cuentaReceptorId).get();
+
+                cuentaReceptor.addToken(token.getAmount());
+            }else{
+                TokenReducido tokenReducido = new TokenReducido(token.getTokenName(), token.getReceptorWalletId());
+                addToken(tokenReducido);
+
+                Long cuentaReceptorId = cR.findByIdWalletAndToken(token.getReceptorWalletId(), token.getTokenName());
+                cuentaReceptor = cR.findById(cuentaReceptorId).get();
+
+                cuentaReceptor.addToken(token.getAmount());
+            }
+            //Ticket venta
+            Ticket ticket = new Ticket(token.getTransferWalletId(),cuentaTransfer.getTokenName(), token.getAmount());
+            
+            sellToken(ticket);
+
+
+            cR.save(cuentaTransfer);
+            cR.save(cuentaReceptor);
+
+        }
+    }
     
     public int exchangeToken (Exchange exchange) throws Exception
     {     

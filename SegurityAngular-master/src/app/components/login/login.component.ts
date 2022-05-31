@@ -20,6 +20,12 @@ export class LoginComponent implements OnInit {
         password:["",[Validators.required, Validators.minLength(3)]]
       }
     ) 
+    this.form=this.formBuilder.group(
+      {
+        username:["",[Validators.required]],
+        password:["",[Validators.required, Validators.minLength(3)]]
+      }
+    ) 
 
   }
   ngOnInit(): void {
