@@ -1,6 +1,5 @@
 package com.bootcamp.G4.services;
 
-import com.bootcamp.G4.model.Cuentas;
 import com.bootcamp.G4.model.MyUser;
 import com.bootcamp.G4.model.Role;
 import com.bootcamp.G4.model.TokenReducido;
@@ -8,8 +7,6 @@ import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.repositories.CuentasRepository;
 import com.bootcamp.G4.repositories.MyUserRepository;
 import com.bootcamp.G4.repositories.RoleRepository;
-import com.bootcamp.G4.repositories.WalletRepository;
-
 import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

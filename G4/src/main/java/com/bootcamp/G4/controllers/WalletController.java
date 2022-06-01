@@ -7,8 +7,6 @@ import com.bootcamp.G4.model.TransferToken;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.services.WalletService;
 import java.util.ArrayList;
-
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +40,16 @@ public class WalletController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-    
+    @GetMapping("/Tickets/{id}")
+    public ResponseEntity<ArrayList<Ticket>> getTicketsById(@PathVariable("id") Long id){
+        ArrayList<Ticket> ticket = wS.getTicketsById(id);
+        if(ticket!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(ticket);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<String> saveWallet(@RequestBody Wallet wallet){
         wS.saveWallet(wallet);

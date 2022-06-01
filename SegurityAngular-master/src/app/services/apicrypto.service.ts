@@ -11,7 +11,7 @@ export class ApicryptoService {
   constructor(public http : HttpClient) { }
 
     getToken(name: string){
-      return this.http.get(`${this.url}${name}/usd`)
+      return this.http.get(`${this.url}${name}/ars`)
     }
   
 }

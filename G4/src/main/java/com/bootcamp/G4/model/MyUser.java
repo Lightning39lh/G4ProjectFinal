@@ -18,7 +18,6 @@ public class MyUser {
     @Column(unique=true)
     private String username;  
     private String password; 
-    private String email;
     
     @ManyToOne
     @JoinColumn(name = "role_id")

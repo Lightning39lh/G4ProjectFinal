@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -18,5 +17,12 @@ export class HeaderComponent implements OnInit {
     sessionStorage.clear();
     this.ruta.navigate(['/login']);
   }
+  home(){
+    this.ruta.navigate(['/my-wallet']);
+  }
+  history(){
+    this.ruta.navigate(['/history']);
+  }
+
 
 }

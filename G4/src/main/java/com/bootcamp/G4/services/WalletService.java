@@ -2,19 +2,15 @@ package com.bootcamp.G4.services;
 
 import com.bootcamp.G4.model.Cuentas;
 import com.bootcamp.G4.model.Exchange;
-
 import com.bootcamp.G4.model.Ticket;
 import com.bootcamp.G4.model.TokenReducido;
 import com.bootcamp.G4.model.TransferToken;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.repositories.CuentasRepository;
-
 import com.bootcamp.G4.repositories.TicketRepository;
 import com.bootcamp.G4.repositories.WalletRepository;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,15 +61,14 @@ public class WalletService {
         Cuentas cuenta = new Cuentas();
         cuenta.setId_Wallet(tokenReducido.getId_Wallet());
         cuenta.setAmount_tokens(0);
-        cuenta.setTokenName(tokenReducido.getTokenName());
-        System.out.println(cuenta);      
+        cuenta.setTokenName(tokenReducido.getTokenName());     
         cR.save(cuenta);
         }
     }
 
     public void buyToken(Ticket ticket) throws Exception
     {
-        ticket.setPositive(true);
+        ticket.setType(0);
         ticketR.save(ticket);
         Cuentas cuenta;
         Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_wallet(),ticket.getName_token());          
@@ -84,7 +79,7 @@ public class WalletService {
     
     public int sellToken (Ticket ticket) throws Exception
     {
-        ticket.setPositive(false);
+        ticket.setType(1);
         ticketR.save(ticket);
         Cuentas cuenta;
         Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_wallet(),ticket.getName_token());
@@ -152,8 +147,6 @@ public class WalletService {
             Ticket ticket = new Ticket(token.getTransferWalletId(),cuentaTransfer.getTokenName(), token.getAmount());
             
             sellToken(ticket);
-
-
             cR.save(cuentaTransfer);
             cR.save(cuentaReceptor);
 
@@ -180,7 +173,7 @@ public class WalletService {
                 double newAmount = usdEquivalent/exchange.getPriceToken2()*0.995;  
                 //BUY
                 Ticket buyTicket = new Ticket(exchange.getId_wallet(), exchange.getTokenName2(), newAmount);  
-                buyToken(buyTicket);      
+                buyToken(buyTicket);
                 //SELL
                 Ticket sellTicket = new Ticket(exchange.getId_wallet(), exchange.getTokenName1(), exchange.getAmount());
                 sellToken(sellTicket);
@@ -194,5 +187,9 @@ public class WalletService {
             return 3;
              //NO TIENE ESE TOKEN SUFICIENTE
         }
+    }
+
+    public ArrayList<Ticket> getTicketsById(Long id) {
+        return ticketR.getTicketsById(id);
     }
 }
