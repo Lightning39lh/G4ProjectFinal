@@ -24,12 +24,13 @@ public class Ticket {
     private Long id_wallet;
     private String name_token;
     private double amount;
-    boolean positive;
+    private int type;
 
     public Ticket(Long id_wallet, String name_token, double amount) {
         this.id_wallet = id_wallet;
         this.name_token = name_token;
         this.amount = amount;
+
     }
 
    
