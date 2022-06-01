@@ -11,6 +11,7 @@ import { InterceptorService } from './services/interceptor.service';
 import { WalletService } from './services/wallet.service';
 import { AddTokensComponent } from './components/add-tokens/add-tokens.component';
 import { HeaderComponent } from './components/header/header.component';
+import { TicketsComponent } from './components/tickets/tickets.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HeaderComponent } from './components/header/header.component';
     LoginComponent,
     MyWalletComponent,
     AddTokensComponent,
-    HeaderComponent
+    HeaderComponent,
+    TicketsComponent,
   ],
   imports: [
     BrowserModule,

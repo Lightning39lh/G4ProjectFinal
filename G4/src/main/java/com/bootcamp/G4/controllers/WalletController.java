@@ -51,9 +51,7 @@ public class WalletController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-    
-            
-            
+
     @PostMapping
     public ResponseEntity<String> saveWallet(@RequestBody Wallet wallet){
         wS.saveWallet(wallet);

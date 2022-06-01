@@ -18,5 +18,12 @@ export class HeaderComponent implements OnInit {
     sessionStorage.clear();
     this.ruta.navigate(['/login']);
   }
+  home(){
+    this.ruta.navigate(['/my-wallet']);
+  }
+  history(){
+    this.ruta.navigate(['/history']);
+  }
+
 
 }

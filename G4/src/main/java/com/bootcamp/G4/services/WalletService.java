@@ -73,7 +73,7 @@ public class WalletService {
 
     public void buyToken(Ticket ticket) throws Exception
     {
-        ticket.setPositive(true);
+        ticket.setType(0);
         ticketR.save(ticket);
         Cuentas cuenta;
         Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_wallet(),ticket.getName_token());          
@@ -84,7 +84,7 @@ public class WalletService {
     
     public int sellToken (Ticket ticket) throws Exception
     {
-        ticket.setPositive(false);
+        ticket.setType(1);
         ticketR.save(ticket);
         Cuentas cuenta;
         Long cuentaId= cR.findByIdWalletAndToken(ticket.getId_wallet(),ticket.getName_token());
@@ -180,7 +180,7 @@ public class WalletService {
                 double newAmount = usdEquivalent/exchange.getPriceToken2()*0.995;  
                 //BUY
                 Ticket buyTicket = new Ticket(exchange.getId_wallet(), exchange.getTokenName2(), newAmount);  
-                buyToken(buyTicket);      
+                buyToken(buyTicket);
                 //SELL
                 Ticket sellTicket = new Ticket(exchange.getId_wallet(), exchange.getTokenName1(), exchange.getAmount());
                 sellToken(sellTicket);
