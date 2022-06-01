@@ -15,7 +15,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtTokenUtil implements Serializable {
     private static final long serialVersionUID = -8091879091924046844L;
 
-    private final String SIGNING_KEY = "LaFalopaDelDieguito";
+    private final String SIGNING_KEY = "AnotherSigningKey";
 
     private final long ACCESS_TOKEN_VALIDITY_SECONDS = 3600;
 
