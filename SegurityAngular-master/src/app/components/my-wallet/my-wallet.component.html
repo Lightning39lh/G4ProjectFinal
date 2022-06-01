@@ -79,14 +79,14 @@
           <tr>
             <th scope="col">NAME</th>
             <th scope="col">AMOUNT</th>
-            <th scope="col">AMOUNT IN USD</th>
+            <th scope="col">AMOUNT IN ARS</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let c of wallet.token_wallet">
             <td>{{ c.tokenName }}</td>
             <td>{{ c.amount_tokens }}</td>
-            <td>{{ c.valor_total }} USD</td>
+            <td>{{ c.valor_total }} ARS</td>
           </tr>
         </tbody>
       </table>
