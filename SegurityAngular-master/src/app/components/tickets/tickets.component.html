@@ -30,15 +30,13 @@
               <tr>
                 <th scope="col">NAME</th>
                 <th scope="col">AMOUNT</th>
-                <th scope="col">TYPE</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let t of ticket">
                 <td>{{ t.name_token }}</td>
-                <td>{{ t.amount }}</td>
-                <td *ngIf="t.positive==0">Compra</td>
-                <td *ngIf="t.positive==1">Venta</td>
+                <td *ngIf="t.type==1">-{{ t.amount }}</td>
+                <td *ngIf="t.type==0">{{ t.amount }}</td>
               </tr>
             </tbody>
           </table>
