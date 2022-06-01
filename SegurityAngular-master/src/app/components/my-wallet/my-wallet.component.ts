@@ -24,7 +24,7 @@ import { TransferToken } from 'src/app/model/TransferToken';
 export class MyWalletComponent implements OnInit {
   crypto: any;
   wallet: Wallet = new Wallet(0, []);
-  ticket: Ticket = new Ticket (0,"",0);
+  ticket: Ticket = new Ticket (0,"",0,0);
   exchange: Exchange = new Exchange(0,0,"",0,0,"");
   tokens: string [] = [];
   token1:string ="";
