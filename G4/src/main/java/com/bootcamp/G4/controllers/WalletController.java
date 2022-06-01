@@ -7,8 +7,6 @@ import com.bootcamp.G4.model.TransferToken;
 import com.bootcamp.G4.model.Wallet;
 import com.bootcamp.G4.services.WalletService;
 import java.util.ArrayList;
-
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
