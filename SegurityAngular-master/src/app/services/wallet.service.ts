@@ -22,7 +22,7 @@ export class WalletService {
 
   async getWallet(): Promise<Observable<any>> {
     var currentUser = this.aS.AuthenticatedUser;
-
+    
     this.getId(currentUser.username).subscribe(data => {
       this.id = data;
     })
